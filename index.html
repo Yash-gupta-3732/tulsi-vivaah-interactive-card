@@ -1,0 +1,3325 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>शुभ देवउठनी एकादशी एवं तुलसी विवाह | Surya Kumar and Sons Jewellers</title>
+
+  <!-- Immediate Dark Maroon Background so Viewport is NEVER White -->
+  <style>
+    html, body {
+      background: #140407 !important;
+      color: #fbf4e4;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+
+  <!-- Luxury Devanagari & Serif Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Rozha+One&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       SURYA KUMAR AND SONS JEWELLERS — LUXURY MAROON & ANTIQUE GOLD DESIGN SYSTEM
+       ========================================================================== */
+    :root {
+      --maroon-deep: #140407;
+      --maroon-rich: #2c070e;
+      --maroon-glass: rgba(32, 6, 12, 0.86);
+      --gold-bright: #f7df8b;
+      --gold-primary: #d8ad46;
+      --gold-antique: #9d7121;
+      --gold-border: rgba(226, 183, 86, 0.45);
+      --text-ivory: #fbf4e4;
+      --text-muted: #dfcca4;
+      --font-hindi-display: 'Rozha One', 'Noto Sans Devanagari', serif;
+      --font-hindi-body: 'Noto Sans Devanagari', sans-serif;
+      --font-luxury: 'Cinzel', 'Cormorant Garamond', serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-hindi-body);
+      user-select: none;
+    }
+
+    #app-shell {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 35%, #24070d 0%, #0b0204 100%);
+      transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Optional 9:16 WhatsApp Status Preview Frame on Desktop */
+    body.status-9-16-mode {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #070103 !important;
+    }
+    body.status-9-16-mode #app-shell {
+      width: min(430px, 54vh);
+      height: min(92vh, 860px);
+      border-radius: 28px;
+      border: 2px solid var(--gold-primary);
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.85), 0 0 40px rgba(216, 173, 70, 0.22);
+    }
+
+    #canvas-container {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      touch-action: none;
+    }
+    #canvas-container canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    #vignette-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background: radial-gradient(circle at center, transparent 52%, rgba(10, 2, 4, 0.65) 100%);
+    }
+
+    #cinematic-curtain {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      background: #0a0204;
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 1.1s ease;
+    }
+
+    /* ==========================================================================
+       LOADING SCREEN
+       ========================================================================== */
+    #loader-screen {
+      position: absolute;
+      inset: 0;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      background: radial-gradient(circle at center, #29070e 0%, #090103 100%);
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #loader-screen.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .loader-mantra {
+      font-family: var(--font-hindi-display);
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      color: var(--gold-bright);
+      letter-spacing: 0.04em;
+      text-shadow: 0 0 18px rgba(216, 173, 70, 0.45);
+    }
+    .loader-bar-track {
+      width: min(260px, 70vw);
+      height: 3px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    #loader-bar-fill {
+      width: 25%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-antique), var(--gold-bright));
+      transition: width 0.25s ease;
+    }
+    #loader-status {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       TOP FLOATING HUD & CHAPTER BANNER
+       ========================================================================== */
+    #top-hud {
+      position: absolute;
+      top: max(14px, env(safe-area-inset-top));
+      left: 16px;
+      right: 16px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .brand-pill {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 14px 6px 8px;
+      background: var(--maroon-glass);
+      border: 1px solid var(--gold-border);
+      border-radius: 999px;
+      backdrop-filter: blur(12px);
+      cursor: pointer;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+    .brand-pill:hover {
+      transform: translateY(-1px);
+      border-color: var(--gold-bright);
+    }
+    .brand-pill-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.12;
+    }
+    .brand-pill-title {
+      font-family: var(--font-luxury);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--gold-bright);
+    }
+    .brand-pill-sub {
+      font-family: var(--font-luxury);
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+    }
+
+    .hud-actions {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .glass-icon-btn {
+      min-width: 38px;
+      height: 38px;
+      padding: 0 10px;
+      border-radius: 999px;
+      border: 1px solid var(--gold-border);
+      background: var(--maroon-glass);
+      color: var(--gold-bright);
+      font-family: var(--font-luxury);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+    }
+    .glass-icon-btn:hover, .glass-icon-btn.active {
+      background: rgba(216, 173, 70, 0.24);
+      border-color: var(--gold-bright);
+      box-shadow: 0 0 16px rgba(216, 173, 70, 0.3);
+    }
+
+    /* Floating Chapter Banner for Scenes 01, 02, 03 */
+    #chapter-banner {
+      position: absolute;
+      top: 66px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 16;
+      pointer-events: none;
+      width: min(540px, calc(100% - 28px));
+      padding: 9px 18px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(36, 7, 13, 0.84) 0%, rgba(20, 4, 8, 0.78) 100%);
+      border: 1px solid rgba(226, 183, 86, 0.38);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    #chapter-banner.hidden {
+      opacity: 0;
+      transform: translate(-50%, -10px);
+      visibility: hidden;
+    }
+    .chapter-title {
+      font-family: var(--font-hindi-display);
+      font-size: clamp(1.02rem, 2.5vw, 1.3rem);
+      color: var(--gold-bright);
+      letter-spacing: 0.03em;
+    }
+    .chapter-desc {
+      font-size: clamp(0.76rem, 1.8vw, 0.86rem);
+      color: var(--text-ivory);
+      opacity: 0.92;
+      margin-top: 2px;
+    }
+
+    /* ==========================================================================
+       SCENE LAYERS (INTRO, GREETING, BRAND REVEAL)
+       ========================================================================== */
+    .scene-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 15;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 72px 18px 132px;
+      pointer-events: none;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .scene-layer.hidden {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(14px);
+    }
+
+    /* Scene 01 Intro Overlay */
+    #intro-overlay {
+      background: radial-gradient(circle at center, rgba(20, 4, 7, 0.32) 0%, rgba(8, 1, 3, 0.68) 100%);
+    }
+    .intro-content {
+      pointer-events: auto;
+      text-align: center;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin-top: 28px;
+    }
+    .gold-ornament {
+      color: var(--gold-primary);
+      letter-spacing: 0.35em;
+      font-size: 0.95rem;
+    }
+    .devanagari-hero {
+      font-family: var(--font-hindi-display);
+      font-size: clamp(1.75rem, 5vw, 3.1rem);
+      font-weight: 400;
+      line-height: 1.35;
+      background: linear-gradient(180deg, #fff3c4 0%, #e4b84c 55%, #b5821f 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.88));
+    }
+    .devanagari-sub {
+      font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+      color: var(--text-ivory);
+      letter-spacing: 0.03em;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.92);
+    }
+
+    /* Luxury Maroon & Gold Glass Cards */
+    .glass-card {
+      pointer-events: auto;
+      position: relative;
+      width: min(560px, 94%);
+      max-height: 100%;
+      overflow-y: auto;
+      padding: 24px 22px;
+      border-radius: 20px;
+      background: linear-gradient(160deg, rgba(48, 9, 17, 0.92) 0%, rgba(22, 4, 8, 0.95) 100%);
+      border: 1px solid var(--gold-primary);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.82), inset 0 0 32px rgba(216, 173, 70, 0.14);
+      backdrop-filter: blur(16px);
+      text-align: center;
+    }
+
+    .card-corner {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-color: var(--gold-bright);
+      border-style: solid;
+      pointer-events: none;
+    }
+    .card-corner.tl { top: 8px; left: 8px; border-width: 2px 0 0 2px; }
+    .card-corner.tr { top: 8px; right: 8px; border-width: 2px 2px 0 0; }
+    .card-corner.bl { bottom: 8px; left: 8px; border-width: 0 0 2px 2px; }
+    .card-corner.br { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; }
+
+    .ornamental-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: var(--gold-primary);
+      margin-bottom: 10px;
+    }
+    .ornamental-divider .line {
+      display: inline-block;
+      width: 56px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+    }
+    .ornamental-divider.compact {
+      margin: 10px 0;
+    }
+
+    .greeting-primary {
+      font-family: var(--font-hindi-display);
+      font-size: clamp(1.7rem, 4.4vw, 2.55rem);
+      font-weight: 400;
+      line-height: 1.28;
+      background: linear-gradient(180deg, #fff5ce 0%, #e5b94c 60%, #b17d1d 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .greeting-secondary {
+      font-family: var(--font-hindi-display);
+      font-size: clamp(1.35rem, 3.6vw, 2rem);
+      font-weight: 400;
+      color: var(--gold-bright);
+      margin-top: 2px;
+    }
+    .greeting-support {
+      font-size: clamp(1rem, 2.3vw, 1.2rem);
+      font-weight: 600;
+      color: var(--text-ivory);
+      margin-top: 4px;
+    }
+    .greeting-blessing {
+      font-size: clamp(0.95rem, 2.1vw, 1.08rem);
+      line-height: 1.65;
+      color: var(--text-ivory);
+      margin: 8px auto;
+    }
+    .greeting-mantra {
+      font-family: var(--font-hindi-display);
+      font-size: clamp(1.1rem, 2.6vw, 1.4rem);
+      color: var(--gold-bright);
+      margin-top: 10px;
+    }
+    .greeting-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    /* ==========================================================================
+       SCENE 05 — JEWELLERY BRAND REVEAL (ADDRESSES LEFT, CONTACTS RIGHT)
+       ========================================================================== */
+    .brand-card {
+      width: min(640px, 95%);
+      padding: 20px 22px;
+    }
+    .brand-emblem-wrap {
+      margin-bottom: 4px;
+    }
+    .brand-kicker {
+      font-family: var(--font-luxury);
+      font-size: 0.78rem;
+      letter-spacing: 0.34em;
+      color: var(--gold-primary);
+      font-weight: 700;
+    }
+    .brand-main-name {
+      font-family: var(--font-luxury);
+      font-size: clamp(1.3rem, 3.4vw, 2rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin-top: 2px;
+      background: linear-gradient(180deg, #fff5ce 0%, #e5b94c 58%, #ad7919 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .brand-legacy {
+      font-family: var(--font-luxury);
+      font-size: 0.74rem;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .brand-pillars {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .pillar-item {
+      font-family: var(--font-luxury);
+      font-size: 0.67rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--gold-bright);
+      padding: 7px 8px;
+      border-radius: 10px;
+      background: rgba(216, 173, 70, 0.08);
+      border: 1px solid rgba(216, 173, 70, 0.26);
+    }
+
+    .brand-divider {
+      height: 1px;
+      margin: 12px 0;
+      background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+    }
+
+    /* Two Explicit Columns: Left = All Addresses, Right = All Contact Info */
+    .brand-two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      text-align: left;
+    }
+    .brand-col {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .contact-block {
+      flex: 1;
+      padding: 9px 11px;
+      border-radius: 10px;
+      background: rgba(12, 2, 4, 0.52);
+      border: 1px solid rgba(216, 173, 70, 0.22);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 3px;
+    }
+    .contact-label {
+      font-family: var(--font-luxury);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      color: var(--gold-primary);
+      font-weight: 700;
+    }
+    .contact-link, .contact-value, .inline-tel {
+      font-size: 0.85rem;
+      color: var(--text-ivory);
+      text-decoration: none;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .contact-link:hover, .inline-tel:hover {
+      color: var(--gold-bright);
+      text-decoration: underline;
+    }
+    .contact-person-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 4px 8px;
+    }
+    .person-name {
+      color: var(--gold-bright);
+      font-weight: 600;
+    }
+    .person-mob {
+      color: var(--text-ivory);
+      white-space: nowrap;
+    }
+
+    .brand-closing-tagline {
+      margin-top: 13px;
+      font-family: var(--font-luxury);
+      font-size: clamp(0.74rem, 1.9vw, 0.88rem);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--gold-bright);
+    }
+    .brand-footer-actions {
+      margin-top: 11px;
+    }
+
+    /* Buttons */
+    .gold-ghost-btn, .gold-solid-btn {
+      padding: 9px 18px;
+      border-radius: 999px;
+      font-family: var(--font-hindi-body);
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .gold-ghost-btn {
+      background: rgba(216, 173, 70, 0.14);
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-bright);
+    }
+    .gold-ghost-btn:hover {
+      background: rgba(216, 173, 70, 0.26);
+    }
+    .gold-solid-btn {
+      background: linear-gradient(135deg, #f1cf6d 0%, #c69128 100%);
+      border: 1px solid #fff0b8;
+      color: #1d0408;
+    }
+    .gold-solid-btn:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    /* ==========================================================================
+       INTERACTIVE INFO PANEL & HOVER TOOLTIP
+       ========================================================================== */
+    #info-panel {
+      position: absolute;
+      top: 124px;
+      right: 16px;
+      z-index: 25;
+      width: min(315px, calc(100% - 32px));
+      padding: 16px 18px 15px;
+      border-radius: 16px;
+      background: var(--maroon-glass);
+      border: 1px solid var(--gold-primary);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.75);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    #info-panel.hidden {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      pointer-events: none;
+    }
+    #btn-close-info {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--gold-border);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--gold-bright);
+      cursor: pointer;
+    }
+    .info-badge {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--gold-primary);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .info-title {
+      font-family: var(--font-hindi-display);
+      font-size: 1.18rem;
+      font-weight: 400;
+      color: var(--gold-bright);
+      margin-bottom: 6px;
+    }
+    .info-body {
+      font-size: 0.86rem;
+      line-height: 1.55;
+      color: var(--text-ivory);
+    }
+
+    #hover-tooltip {
+      position: absolute;
+      z-index: 30;
+      pointer-events: none;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: rgba(26, 4, 9, 0.92);
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-bright);
+      font-size: 0.78rem;
+      white-space: nowrap;
+      transform: translate(-50%, -135%);
+      transition: opacity 0.15s ease;
+    }
+    #hover-tooltip.hidden {
+      opacity: 0;
+    }
+
+    /* ==========================================================================
+       BOTTOM CEREMONIAL DOCK & SCENE STEPPER
+       ========================================================================== */
+    #bottom-hud {
+      position: absolute;
+      bottom: max(12px, env(safe-area-inset-bottom));
+      left: 12px;
+      right: 12px;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      pointer-events: none;
+    }
+
+    .ceremony-bar {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--maroon-glass);
+      border: 1px solid var(--gold-border);
+      backdrop-filter: blur(14px);
+    }
+    .ceremony-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-ivory);
+      font-family: var(--font-hindi-body);
+      font-size: 0.79rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .ceremony-btn:hover:not(:disabled), .ceremony-btn:active:not(:disabled) {
+      background: rgba(216, 173, 70, 0.22);
+      border-color: var(--gold-primary);
+      color: var(--gold-bright);
+    }
+    .ceremony-btn.completed, .ceremony-btn:disabled {
+      background: rgba(216, 173, 70, 0.16);
+      border-color: rgba(216, 173, 70, 0.45);
+      color: var(--gold-bright);
+      opacity: 0.85;
+      cursor: default;
+    }
+
+    .scene-stepper {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .step-dot {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(216, 173, 70, 0.28);
+      background: rgba(20, 4, 8, 0.78);
+      color: var(--text-muted);
+      font-family: var(--font-hindi-body);
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .step-dot.active, .step-dot:hover {
+      border-color: var(--gold-bright);
+      background: rgba(216, 173, 70, 0.25);
+      color: var(--gold-bright);
+    }
+
+    #interaction-hint {
+      font-size: 0.71rem;
+      color: rgba(245, 226, 182, 0.78);
+      letter-spacing: 0.03em;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px), (max-aspect-ratio: 3/4) {
+      .desktop-only {
+        display: none !important;
+      }
+      .brand-pill-title {
+        font-size: 0.64rem;
+      }
+      .glass-icon-btn {
+        min-width: 38px;
+        height: 38px;
+      }
+      .scene-layer {
+        padding: 66px 12px 140px;
+      }
+      .brand-pillars {
+        grid-template-columns: 1fr;
+      }
+      .ceremony-bar {
+        border-radius: 18px;
+      }
+      .ceremony-btn {
+        padding: 7px 9px;
+        font-size: 0.73rem;
+      }
+    }
+
+    @media (max-width: 460px) {
+      .brand-two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    body.status-9-16-mode .brand-pillars,
+    body.status-9-16-mode .brand-two-col {
+      grid-template-columns: 1fr;
+    }
+    body.status-9-16-mode .scene-layer {
+      padding: 64px 12px 138px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app-shell">
+    <!-- WebGL 3D Canvas Container -->
+    <div id="canvas-container" aria-label="Interactive 3D Tulsi Vivah Sacred Temple Environment"></div>
+
+    <!-- Cinematic Vignette & Opening Curtain -->
+    <div id="cinematic-curtain"></div>
+    <div id="vignette-overlay"></div>
+
+    <!-- Loading Screen -->
+    <div id="loader-screen" class="active">
+      <div class="loader-emblem">
+        <svg viewBox="0 0 80 80" width="64" height="64" aria-hidden="true">
+          <polygon points="40,6 49,16 31,16" fill="none" stroke="#e5c158" stroke-width="2.2"/>
+          <line x1="34" y1="11" x2="46" y2="11" stroke="#e5c158" stroke-width="1.5"/>
+          <circle cx="40" cy="44" r="24" fill="none" stroke="#e5c158" stroke-width="2.5"/>
+          <circle cx="40" cy="44" r="20" fill="none" stroke="#b8892a" stroke-width="1"/>
+          <text x="40" y="50" text-anchor="middle" fill="#f3d678" font-family="Cinzel, serif" font-size="15" font-weight="700">SKS</text>
+        </svg>
+      </div>
+      <div class="loader-mantra">॥ ॐ नमो भगवते वासुदेवाय ॥</div>
+      <div class="loader-bar-track"><div id="loader-bar-fill"></div></div>
+      <div id="loader-status">पवित्र तुलसी वृंदावन सज्जित हो रहा है...</div>
+    </div>
+
+    <!-- Top Floating HUD -->
+    <header id="top-hud">
+      <div class="brand-pill" id="brand-badge" title="Surya Kumar and Sons Jewellers">
+        <svg class="sks-icon" viewBox="0 0 80 80" width="32" height="32" aria-hidden="true">
+          <polygon points="40,5 50,16 30,16" fill="none" stroke="#e5c158" stroke-width="2.4"/>
+          <circle cx="40" cy="45" r="24" fill="none" stroke="#e5c158" stroke-width="2.6"/>
+          <text x="40" y="51" text-anchor="middle" fill="#f6dc88" font-family="Cinzel, serif" font-size="15" font-weight="700">SKS</text>
+        </svg>
+        <div class="brand-pill-text">
+          <span class="brand-pill-title">SURYA KUMAR &amp; SONS</span>
+          <span class="brand-pill-sub">JEWELLERS</span>
+        </div>
+      </div>
+
+      <div class="hud-actions">
+        <button id="btn-status-mode" class="glass-icon-btn desktop-only" title="Toggle 9:16 WhatsApp Status Preview" aria-label="Toggle 9:16 Mobile Preview">
+          <span>9:16</span>
+        </button>
+        <button id="btn-sound" class="glass-icon-btn" title="Toggle Sacred Temple Audio" aria-label="Toggle Sound">
+          <span id="sound-icon">🔇</span>
+        </button>
+        <button id="btn-reset-cam" class="glass-icon-btn" title="Reset Camera View" aria-label="Reset Camera">
+          <span>⟲</span>
+        </button>
+        <button id="btn-replay" class="glass-icon-btn" title="Replay Cinematic Experience" aria-label="Replay">
+          <span>▶</span>
+        </button>
+        <button id="btn-fullscreen" class="glass-icon-btn" title="Toggle Fullscreen" aria-label="Fullscreen">
+          <span>⛶</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Floating Chapter Banner for Scenes 01, 02, 03 -->
+    <div id="chapter-banner" aria-live="polite">
+      <div id="chapter-title" class="chapter-title">०१ • दिव्य मंदिर प्रवेश</div>
+      <div id="chapter-desc" class="chapter-desc">पावन कार्तिक रात्रि, देवालय स्तंभ एवं मंगल घंटा नाद</div>
+    </div>
+
+    <!-- Scene 01 Opening Mantra Overlay -->
+    <section id="intro-overlay" class="scene-layer" aria-live="polite">
+      <div class="intro-content">
+        <div class="gold-ornament">❖ ॐ ❖</div>
+        <h2 id="intro-mantra" class="devanagari-hero">॥ ॐ नमो भगवते वासुदेवाय ॥</h2>
+        <p id="intro-subtitle" class="devanagari-sub">एक पावन उत्सव, आस्था और भक्ति का।</p>
+        <button id="btn-skip-intro" class="gold-ghost-btn">प्रवेश करें • Enter Shrine</button>
+      </div>
+    </section>
+
+    <!-- Scene 04 Devotional Hindi Greeting Overlay -->
+    <section id="greeting-overlay" class="scene-layer hidden">
+      <div class="glass-card greeting-card">
+        <div class="card-corner tl"></div><div class="card-corner tr"></div>
+        <div class="card-corner bl"></div><div class="card-corner br"></div>
+        <div class="ornamental-divider"><span>✦</span><i class="line"></i><span>ॐ</span><i class="line"></i><span>✦</span></div>
+        <h1 class="greeting-primary">शुभ देवउठनी एकादशी</h1>
+        <h2 class="greeting-secondary">एवं तुलसी विवाह</h2>
+        <p class="greeting-support">की हार्दिक शुभकामनाएँ</p>
+        <div class="ornamental-divider compact"><i class="line"></i><span>❖</span><i class="line"></i></div>
+        <p class="greeting-blessing">
+          शालिग्राम भगवान एवं माता तुलसी की कृपा से आपके जीवन में सुख, शांति, समृद्धि और खुशहाली बनी रहे।
+        </p>
+        <p class="greeting-mantra">॥ ॐ नमो भगवते वासुदेवाय ॥</p>
+        <div class="greeting-actions">
+          <button id="btn-explore-shrine" class="gold-ghost-btn">3D दर्शन करें</button>
+          <button id="btn-to-brand" class="gold-solid-btn">शुभेच्छु देखें ✦</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scene 05 Jewellery Brand Reveal Overlay (Left: All Addresses, Right: All Contact Info) -->
+    <section id="brand-overlay" class="scene-layer hidden">
+      <div class="glass-card brand-card">
+        <div class="card-corner tl"></div><div class="card-corner tr"></div>
+        <div class="card-corner bl"></div><div class="card-corner br"></div>
+
+        <div class="brand-emblem-wrap">
+          <svg viewBox="0 0 90 90" width="56" height="56" aria-hidden="true">
+            <polygon points="45,5 56,17 34,17" fill="none" stroke="#f0cf6e" stroke-width="2.2"/>
+            <line x1="38" y1="11" x2="52" y2="11" stroke="#f0cf6e" stroke-width="1.4"/>
+            <circle cx="45" cy="50" r="27" fill="none" stroke="#f0cf6e" stroke-width="2.6"/>
+            <circle cx="45" cy="50" r="22" fill="none" stroke="#b98727" stroke-width="1.1"/>
+            <text x="45" y="57" text-anchor="middle" fill="#fae29c" font-family="Cinzel, serif" font-size="17" font-weight="700">SKS</text>
+          </svg>
+        </div>
+
+        <div class="brand-kicker">JEWELLERS</div>
+        <h2 class="brand-main-name">SURYA KUMAR AND SONS</h2>
+        <p class="brand-legacy">A LEGACY OF TRUST SINCE GENERATIONS</p>
+
+        <div class="brand-pillars">
+          <div class="pillar-item">✦ HALLMARKED JEWELLERY</div>
+          <div class="pillar-item">✦ PURITY YOU CAN TRUST</div>
+          <div class="pillar-item">✦ GENERATIONS OF TRUST</div>
+          <div class="pillar-item">✦ EXQUISITE DESIGNS FOR EVERY OCCASION</div>
+        </div>
+
+        <div class="brand-divider"></div>
+
+        <div class="brand-two-col">
+          <!-- LEFT COLUMN: ALL ADDRESSES -->
+          <div class="brand-col">
+            <div class="contact-block">
+              <span class="contact-label">ADDRESS 1</span>
+              <span class="contact-value">नयाबाजार दुकान नं. 28, कुरुद (छ.ग.)</span>
+            </div>
+            <div class="contact-block">
+              <span class="contact-label">ADDRESS 2</span>
+              <span class="contact-value">रामबाग, धमतरी (छ.ग.)</span>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: ALL CONTACT INFORMATION -->
+          <div class="brand-col">
+            <div class="contact-block">
+              <span class="contact-label">CONTACT INFORMATION</span>
+              <a href="tel:9340039175" class="contact-link contact-person-row">
+                <span class="person-name">रवि प्रकाश गुप्ता</span>
+                <span class="person-mob">Mob. 9340039175</span>
+              </a>
+              <a href="tel:7974779872" class="contact-link contact-person-row">
+                <span class="person-name">हर्ष गुप्ता</span>
+                <span class="person-mob">Mob. 7974779872</span>
+              </a>
+            </div>
+            <div class="contact-block">
+              <span class="contact-label">ADDITIONAL CONTACT NUMBERS</span>
+              <span class="contact-value">
+                <a href="tel:8982225423" class="inline-tel">8982225423</a>,
+                <a href="tel:7000707966" class="inline-tel">7000707966</a>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="brand-closing-tagline">GOLDEN RELATIONSHIPS FOR A BRIGHTER TOMORROW</div>
+
+        <div class="brand-footer-actions">
+          <button id="btn-back-to-3d" class="gold-ghost-btn">3D मंदिर में लौटें</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Floating Interactive Object Info Panel -->
+    <aside id="info-panel" class="hidden" role="dialog" aria-live="polite">
+      <button id="btn-close-info" aria-label="Close panel">✕</button>
+      <div id="info-badge" class="info-badge">पवित्र दर्शन</div>
+      <h3 id="info-title" class="info-title"></h3>
+      <p id="info-body" class="info-body"></p>
+    </aside>
+
+    <!-- Hover Tooltip -->
+    <div id="hover-tooltip" class="hidden"></div>
+
+    <!-- Bottom Interactive Ceremonial Dock & Scene Stepper -->
+    <footer id="bottom-hud">
+      <div class="ceremony-bar">
+        <button id="act-bell" class="ceremony-btn" title="Ring Sacred Brass Bell">
+          <span class="c-icon">🔔</span>
+          <span class="c-label">घंटी बजाएं</span>
+        </button>
+        <button id="act-diya" class="ceremony-btn" title="Illuminate Sacred Diyas">
+          <span class="c-icon">🪔</span>
+          <span id="diya-btn-label" class="c-label">दीप प्रज्वलन</span>
+        </button>
+        <button id="act-flowers" class="ceremony-btn" title="Shower Rose & Marigold Petals">
+          <span class="c-icon">🌸</span>
+          <span id="flower-btn-label" class="c-label">पुष्प वर्षा</span>
+        </button>
+        <button id="act-tulsi" class="ceremony-btn" title="Tulsi Puja Aura">
+          <span class="c-icon">🌿</span>
+          <span class="c-label">तुलसी अर्चन</span>
+        </button>
+      </div>
+
+      <nav class="scene-stepper" aria-label="Experience Chapters">
+        <button class="step-dot active" data-scene="0">01 प्रवेश</button>
+        <button class="step-dot" data-scene="1">02 वृंदावन</button>
+        <button class="step-dot" data-scene="2">03 विवाह</button>
+        <button class="step-dot" data-scene="3">04 शुभकामना</button>
+        <button class="step-dot" data-scene="4">05 शुभेच्छु</button>
+      </nav>
+
+      <div id="interaction-hint">Drag to Explore • Tap Bell, Diyas &amp; Tulsi to Interact</div>
+    </footer>
+  </div>
+
+  <!-- Classic UMD Libraries (Zero ES Module / Sandboxed Iframe Import Failures) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ========================================================================
+         1. FAILSAFE LOADER DISMISSAL (GUARANTEES VIEWPORT NEVER HANGS)
+         ======================================================================== */
+      var loaderDismissed = false;
+      function dismissLoader() {
+        if (loaderDismissed) return;
+        loaderDismissed = true;
+        var fill = document.getElementById('loader-bar-fill');
+        var loader = document.getElementById('loader-screen');
+        var curtain = document.getElementById('cinematic-curtain');
+        if (fill) fill.style.width = '100%';
+        if (loader) loader.classList.add('fade-out');
+        if (curtain) curtain.style.opacity = '0';
+      }
+      // Unconditional failsafe at 1200ms
+      setTimeout(dismissLoader, 1200);
+
+      /* ========================================================================
+         2. SYNTHESIZED SACRED TEMPLE AUDIO ENGINE (WEB AUDIO API)
+         ======================================================================== */
+      function TempleAudio() {
+        this.ctx = null;
+        this.isMuted = true;
+        this.masterGain = null;
+        this.isInitialized = false;
+      }
+      TempleAudio.prototype.init = function () {
+        if (this.isInitialized) return;
+        var AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        try {
+          this.ctx = new AudioCtx();
+          this.masterGain = this.ctx.createGain();
+          this.masterGain.gain.value = 0;
+          this.masterGain.connect(this.ctx.destination);
+          this._startAmbientTanpura();
+          this.isInitialized = true;
+        } catch (e) {
+          console.warn('Web Audio unavailable:', e);
+        }
+      };
+      TempleAudio.prototype.toggle = function () {
+        this.init();
+        if (!this.ctx) return false;
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+        this.isMuted = !this.isMuted;
+        var now = this.ctx.currentTime;
+        this.masterGain.gain.cancelScheduledValues(now);
+        this.masterGain.gain.setTargetAtTime(this.isMuted ? 0 : 0.45, now, 0.25);
+        if (!this.isMuted) this.playBell(0.35);
+        return !this.isMuted;
+      };
+      TempleAudio.prototype._startAmbientTanpura = function () {
+        var freqs = [130.81, 196.0, 261.63, 329.63];
+        var droneGain = this.ctx.createGain();
+        droneGain.gain.value = 0.08;
+        var filter = this.ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 520;
+        droneGain.connect(filter);
+        filter.connect(this.masterGain);
+        for (var i = 0; i < freqs.length; i++) {
+          var osc = this.ctx.createOscillator();
+          var partial = this.ctx.createGain();
+          osc.type = i % 2 === 0 ? 'sine' : 'triangle';
+          osc.frequency.value = freqs[i];
+          partial.gain.value = 0.22 / (i + 1);
+          osc.connect(partial);
+          partial.connect(droneGain);
+          osc.start();
+        }
+      };
+      TempleAudio.prototype.playBell = function (intensity) {
+        if (this.isMuted || !this.ctx) return;
+        var power = intensity || 0.8;
+        var now = this.ctx.currentTime;
+        var partials = [523.25, 1046.5, 1567.98, 2093.0, 2793.8];
+        for (var i = 0; i < partials.length; i++) {
+          var osc = this.ctx.createOscillator();
+          var gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(partials[i], now);
+          var amp = (power * 0.24) / (i + 1);
+          gain.gain.setValueAtTime(0.0001, now);
+          gain.gain.linearRampToValueAtTime(amp, now + 0.015);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 3.2 - i * 0.35);
+          osc.connect(gain);
+          gain.connect(this.masterGain);
+          osc.start(now);
+          osc.stop(now + 3.4);
+        }
+      };
+      TempleAudio.prototype.playDiyaIgnite = function () {
+        if (this.isMuted || !this.ctx) return;
+        var now = this.ctx.currentTime;
+        var osc = this.ctx.createOscillator();
+        var gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(380, now);
+        osc.frequency.exponentialRampToValueAtTime(880, now + 0.28);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.linearRampToValueAtTime(0.14, now + 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.45);
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+        osc.start(now);
+        osc.stop(now + 0.5);
+      };
+      TempleAudio.prototype.playFlowerShower = function () {
+        if (this.isMuted || !this.ctx) return;
+        var now = this.ctx.currentTime;
+        var notes = [587.33, 659.25, 783.99, 987.77, 1174.66];
+        for (var i = 0; i < notes.length; i++) {
+          var osc = this.ctx.createOscillator();
+          var gain = this.ctx.createGain();
+          osc.type = 'sine';
+          var t = now + i * 0.09;
+          osc.frequency.setValueAtTime(notes[i], t);
+          gain.gain.setValueAtTime(0.0001, t);
+          gain.gain.linearRampToValueAtTime(0.08, t + 0.03);
+          gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.9);
+          osc.connect(gain);
+          gain.connect(this.masterGain);
+          osc.start(t);
+          osc.stop(t + 1.0);
+        }
+      };
+
+      /* ========================================================================
+         3. PROCEDURAL TEXTURES (RANGOLI, CARVED STONE, EMBOSSED OM, BOTANICAL TULSI LEAF)
+         ======================================================================== */
+      function createRangoliTexture(size) {
+        var s = size || 1024;
+        var canvas = document.createElement('canvas');
+        canvas.width = s;
+        canvas.height = s;
+        var ctx = canvas.getContext('2d');
+        var cx = s / 2;
+        var cy = s / 2;
+
+        ctx.clearRect(0, 0, s, s);
+        var rings = [
+          { r: s * 0.47, color: '#5c0f1d' },
+          { r: s * 0.44, color: '#d99b26' },
+          { r: s * 0.41, color: '#8f1628' },
+          { r: s * 0.35, color: '#f2c94c' },
+          { r: s * 0.29, color: '#2b0910' }
+        ];
+        for (var r = 0; r < rings.length; r++) {
+          ctx.beginPath();
+          ctx.arc(cx, cy, rings[r].r, 0, Math.PI * 2);
+          ctx.fillStyle = rings[r].color;
+          ctx.fill();
+        }
+
+        for (var layer = 0; layer < 3; layer++) {
+          var count = 16 + layer * 8;
+          var radius = s * (0.24 + layer * 0.075);
+          var petalLen = s * 0.055;
+          for (var i = 0; i < count; i++) {
+            var angle = (i / count) * Math.PI * 2;
+            ctx.save();
+            ctx.translate(cx + Math.cos(angle) * radius, cy + Math.sin(angle) * radius);
+            ctx.rotate(angle + Math.PI / 2);
+            ctx.beginPath();
+            ctx.moveTo(0, -petalLen);
+            ctx.quadraticCurveTo(petalLen * 0.65, 0, 0, petalLen);
+            ctx.quadraticCurveTo(-petalLen * 0.65, 0, 0, -petalLen);
+            ctx.fillStyle = layer % 2 === 0 ? '#ff9933' : '#fff2cc';
+            ctx.fill();
+            ctx.restore();
+          }
+        }
+
+        for (var d = 0; d < 48; d++) {
+          var a = (d / 48) * Math.PI * 2;
+          ctx.beginPath();
+          ctx.arc(cx + Math.cos(a) * s * 0.455, cy + Math.sin(a) * s * 0.455, 5, 0, Math.PI * 2);
+          ctx.fillStyle = '#fff9e6';
+          ctx.fill();
+        }
+
+        var tex = new THREE.CanvasTexture(canvas);
+        tex.encoding = THREE.sRGBEncoding;
+        tex.anisotropy = 4;
+        return tex;
+      }
+
+      function createCarvedStoneTexture(size) {
+        var s = size || 512;
+        var canvas = document.createElement('canvas');
+        canvas.width = s;
+        canvas.height = s;
+        var ctx = canvas.getContext('2d');
+
+        ctx.fillStyle = '#d8c3a5';
+        ctx.fillRect(0, 0, s, s);
+
+        for (var i = 0; i < 4000; i++) {
+          var x = Math.random() * s;
+          var y = Math.random() * s;
+          var v = 185 + Math.floor(Math.random() * 45);
+          ctx.fillStyle = 'rgba(' + v + ',' + (v - 18) + ',' + (v - 42) + ',0.28)';
+          ctx.fillRect(x, y, 2, 2);
+        }
+
+        ctx.strokeStyle = '#9c7c54';
+        ctx.lineWidth = 8;
+        ctx.strokeRect(18, 18, s - 36, s - 36);
+        ctx.strokeStyle = '#c59b3c';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(30, 30, s - 60, s - 60);
+
+        var tex = new THREE.CanvasTexture(canvas);
+        tex.encoding = THREE.sRGBEncoding;
+        tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+        return tex;
+      }
+
+      function createEmbossedOmTexture(size) {
+        var s = size || 256;
+        var canvas = document.createElement('canvas');
+        canvas.width = s;
+        canvas.height = s;
+        var ctx = canvas.getContext('2d');
+
+        var grad = ctx.createRadialGradient(s / 2, s / 2, 10, s / 2, s / 2, s / 2);
+        grad.addColorStop(0, '#5e101f');
+        grad.addColorStop(0.82, '#2d060e');
+        grad.addColorStop(1, '#e6b84c');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(s / 2, s / 2, s * 0.48, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = '#f5d473';
+        ctx.stroke();
+
+        ctx.font = 'bold ' + Math.floor(s * 0.54) + 'px "Noto Sans Devanagari", serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#fff0b3';
+        ctx.shadowColor = 'rgba(255, 200, 70, 0.85)';
+        ctx.shadowBlur = 14;
+        ctx.fillText('ॐ', s / 2, s / 2 + 6);
+
+        var tex = new THREE.CanvasTexture(canvas);
+        tex.encoding = THREE.sRGBEncoding;
+        return tex;
+      }
+
+      /* High-Resolution Botanical Tulsi (Ocimum tenuiflorum) Leaf Color & Bump Textures */
+      function createBotanicalTulsiLeafTextures(size) {
+        var s = size || 256;
+        var colorCanvas = document.createElement('canvas');
+        colorCanvas.width = s;
+        colorCanvas.height = s;
+        var ctx = colorCanvas.getContext('2d');
+
+        var bumpCanvas = document.createElement('canvas');
+        bumpCanvas.width = s;
+        bumpCanvas.height = s;
+        var bctx = bumpCanvas.getContext('2d');
+
+        var cx = s * 0.5;
+        var baseY = s * 0.88;
+        var tipY = s * 0.08;
+        var bladeLen = baseY - tipY;
+
+        // Build authentic ovate-elliptic Tulsi leaf silhouette with serrated/toothed edges
+        function traceSerratedLeafPath(c) {
+          c.beginPath();
+          // Petiole stalk at base
+          c.moveTo(cx - s * 0.016, s * 0.99);
+          c.lineTo(cx - s * 0.014, baseY);
+
+          var teeth = 13;
+          // Right serrated margin from base to acute tip
+          for (var i = 1; i <= teeth; i++) {
+            var t = i / teeth;
+            var y = baseY - t * bladeLen;
+            // Ovate envelope: widest at ~38% from base
+            var widthEnv = Math.sin(Math.pow(t, 0.78) * Math.PI) * (s * 0.34);
+            var toothOut = i < teeth ? widthEnv + s * 0.024 : 0;
+            var notchY = y + (bladeLen / teeth) * 0.35;
+            var notchX = widthEnv * 0.91;
+            if (i < teeth) {
+              c.lineTo(cx + toothOut, y);
+              c.lineTo(cx + notchX, notchY - (bladeLen / teeth) * 0.55);
+            } else {
+              c.lineTo(cx, tipY);
+            }
+          }
+
+          // Left serrated margin from tip back down to base
+          for (var j = teeth - 1; j >= 1; j--) {
+            var t2 = j / teeth;
+            var y2 = baseY - t2 * bladeLen;
+            var widthEnv2 = Math.sin(Math.pow(t2, 0.78) * Math.PI) * (s * 0.34);
+            var notchY2 = y2 - (bladeLen / teeth) * 0.2;
+            var notchX2 = widthEnv2 * 0.91;
+            c.lineTo(cx - notchX2, notchY2);
+            c.lineTo(cx - (widthEnv2 + s * 0.024), y2);
+          }
+
+          c.lineTo(cx + s * 0.014, baseY);
+          c.lineTo(cx + s * 0.016, s * 0.99);
+          c.closePath();
+        }
+
+        // 1. Paint Rich Botanical Emerald-Olive + Krishna-Tulsi Purple-Bronze Rim Gradient
+        traceSerratedLeafPath(ctx);
+        var leafGrad = ctx.createRadialGradient(cx, s * 0.55, s * 0.04, cx, s * 0.5, s * 0.44);
+        leafGrad.addColorStop(0.0, '#499e42');
+        leafGrad.addColorStop(0.55, '#2d7a32');
+        leafGrad.addColorStop(0.86, '#235e28');
+        leafGrad.addColorStop(1.0, '#4c2c3d'); // Authentic Krishna-Tulsi purple-bronze toothed margin
+        ctx.fillStyle = leafGrad;
+        ctx.fill();
+
+        // Subtle organic leaf surface mottling / glandular oil dots
+        ctx.save();
+        ctx.clip();
+        for (var g = 0; g < 180; g++) {
+          var gx = cx + (Math.random() - 0.5) * s * 0.65;
+          var gy = tipY + Math.random() * bladeLen;
+          ctx.fillStyle = g % 2 === 0 ? 'rgba(130, 210, 110, 0.14)' : 'rgba(20, 55, 22, 0.14)';
+          ctx.beginPath();
+          ctx.arc(gx, gy, 1.5 + Math.random() * 2.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // Crisp Central Midrib Vein
+        ctx.strokeStyle = '#7ac96b';
+        ctx.lineWidth = s * 0.016;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(cx, s * 0.98);
+        ctx.quadraticCurveTo(cx + 2, s * 0.52, cx, tipY + s * 0.03);
+        ctx.stroke();
+
+        // 6 Pairs of Arcuate Lateral Veins + Fine Sub-Veins
+        ctx.lineWidth = s * 0.008;
+        ctx.strokeStyle = 'rgba(138, 214, 118, 0.78)';
+        for (var v = 1; v <= 6; v++) {
+          var vt = v / 7;
+          var vy = baseY - vt * bladeLen * 0.88;
+          var span = Math.sin(Math.pow(vt, 0.78) * Math.PI) * (s * 0.29);
+
+          // Right lateral vein
+          ctx.beginPath();
+          ctx.moveTo(cx, vy);
+          ctx.quadraticCurveTo(cx + span * 0.55, vy - s * 0.03, cx + span, vy - s * 0.09);
+          ctx.stroke();
+
+          // Left lateral vein
+          ctx.beginPath();
+          ctx.moveTo(cx, vy - s * 0.012);
+          ctx.quadraticCurveTo(cx - span * 0.55, vy - s * 0.042, cx - span, vy - s * 0.102);
+          ctx.stroke();
+        }
+        ctx.restore();
+
+        // 2. Paint Matching Height / Bump Map for Crisp 3D Leaf Relief
+        bctx.fillStyle = '#787878';
+        bctx.fillRect(0, 0, s, s);
+        traceSerratedLeafPath(bctx);
+        bctx.fillStyle = '#9a9a9a';
+        bctx.fill();
+        bctx.save();
+        bctx.clip();
+        bctx.strokeStyle = '#e5e5e5';
+        bctx.lineWidth = s * 0.018;
+        bctx.beginPath();
+        bctx.moveTo(cx, s * 0.98);
+        bctx.lineTo(cx, tipY + s * 0.03);
+        bctx.stroke();
+
+        bctx.lineWidth = s * 0.009;
+        bctx.strokeStyle = '#cccccc';
+        for (var bv = 1; bv <= 6; bv++) {
+          var bvt = bv / 7;
+          var bvy = baseY - bvt * bladeLen * 0.88;
+          var bspan = Math.sin(Math.pow(bvt, 0.78) * Math.PI) * (s * 0.29);
+          bctx.beginPath();
+          bctx.moveTo(cx, bvy);
+          bctx.quadraticCurveTo(cx + bspan * 0.55, bvy - s * 0.03, cx + bspan, bvy - s * 0.09);
+          bctx.stroke();
+          bctx.beginPath();
+          bctx.moveTo(cx, bvy - s * 0.012);
+          bctx.quadraticCurveTo(cx - bspan * 0.55, bvy - s * 0.042, cx - bspan, bvy - s * 0.102);
+          bctx.stroke();
+        }
+        bctx.restore();
+
+        var colorTex = new THREE.CanvasTexture(colorCanvas);
+        colorTex.encoding = THREE.sRGBEncoding;
+        colorTex.anisotropy = 4;
+
+        var bumpTex = new THREE.CanvasTexture(bumpCanvas);
+        bumpTex.anisotropy = 4;
+
+        return { colorTex: colorTex, bumpTex: bumpTex };
+      }
+
+      /* ========================================================================
+         4. CUSTOM GEOMETRY HELPERS (TAPERED ORGANIC WOODY TUBES & SCULPTED LEAVES)
+         ======================================================================== */
+      function createTaperedTubeGeometry(curve, tubularSegments, radiusStart, radiusEnd, radialSegments) {
+        var tSegs = tubularSegments || 18;
+        var rSegs = radialSegments || 8;
+        var frames = curve.computeFrenetFrames(tSegs, false);
+
+        var positions = [];
+        var normals = [];
+        var uvs = [];
+        var indices = [];
+
+        var vertex = new THREE.Vector3();
+        var normal = new THREE.Vector3();
+
+        for (var i = 0; i <= tSegs; i++) {
+          var u = i / tSegs;
+          var pt = curve.getPointAt(u);
+          var N = frames.normals[i];
+          var B = frames.binormals[i];
+          var radius = radiusStart * (1 - u) + radiusEnd * u;
+
+          for (var j = 0; j <= rSegs; j++) {
+            var v = (j / rSegs) * Math.PI * 2;
+            var sin = Math.sin(v);
+            var cos = -Math.cos(v);
+
+            normal.x = cos * N.x + sin * B.x;
+            normal.y = cos * N.y + sin * B.y;
+            normal.z = cos * N.z + sin * B.z;
+            normal.normalize();
+
+            vertex.x = pt.x + radius * normal.x;
+            vertex.y = pt.y + radius * normal.y;
+            vertex.z = pt.z + radius * normal.z;
+
+            positions.push(vertex.x, vertex.y, vertex.z);
+            normals.push(normal.x, normal.y, normal.z);
+            uvs.push(j / rSegs, u);
+          }
+        }
+
+        for (var i2 = 1; i2 <= tSegs; i2++) {
+          for (var j2 = 1; j2 <= rSegs; j2++) {
+            var a = (rSegs + 1) * (i2 - 1) + (j2 - 1);
+            var b = (rSegs + 1) * i2 + (j2 - 1);
+            var c = (rSegs + 1) * i2 + j2;
+            var d = (rSegs + 1) * (i2 - 1) + j2;
+            indices.push(a, b, d);
+            indices.push(b, c, d);
+          }
+        }
+
+        var geo = new THREE.BufferGeometry();
+        geo.setIndex(indices);
+        geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+        geo.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+        geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+        return geo;
+      }
+
+      /* Sculpted 3D Spoon-Cupped & Arched Tulsi Leaf Geometry (Anchored at Petiole Base) */
+      function createSculptedTulsiLeafGeo() {
+        var width = 0.22;
+        var length = 0.29;
+        var geo = new THREE.PlaneGeometry(width, length, 8, 12);
+        // Anchor pivot at petiole base (y = 0)
+        geo.translate(0, length * 0.5, 0);
+
+        var pos = geo.attributes.position;
+        for (var i = 0; i < pos.count; i++) {
+          var x = pos.getX(i);
+          var y = pos.getY(i);
+          var nx = x / (width * 0.5); // -1 .. +1
+          var ny = y / length;        //  0 .. +1
+
+          // Natural transverse V-fold & spoon cup + longitudinal arch & tip droop
+          var cupZ = (nx * nx) * 0.022 + Math.abs(nx) * 0.01;
+          var archZ = Math.sin(ny * Math.PI) * 0.024 - Math.pow(ny, 2.1) * 0.052;
+          pos.setZ(i, cupZ + archZ);
+        }
+        geo.computeVertexNormals();
+        return geo;
+      }
+
+      /* ========================================================================
+         5. 3D SCENE BUILDERS (ENVIRONMENT, CLASSIC TULSI CHAURA, BOTANICAL TULSI
+            PAUDHA, 4-PILLAR MANDAP, BRASS BELL, BRASS DIYAS, PUSHP VARSHA)
+         ======================================================================== */
+      function buildTempleEnvironment(scene, stoneTex, rangoliTex) {
+        var envGroup = new THREE.Group();
+        scene.add(envGroup);
+
+        // Full Kartik Moon & Halo
+        var moon = new THREE.Mesh(
+          new THREE.SphereGeometry(2.1, 32, 32),
+          new THREE.MeshBasicMaterial({ color: 0xfff5dc })
+        );
+        moon.position.set(-11, 17, -34);
+        envGroup.add(moon);
+
+        var halo = new THREE.Mesh(
+          new THREE.RingGeometry(2.15, 4.5, 48),
+          new THREE.MeshBasicMaterial({
+            color: 0xb9cfff,
+            transparent: true,
+            opacity: 0.16,
+            side: THREE.DoubleSide
+          })
+        );
+        halo.position.copy(moon.position);
+        halo.lookAt(0, 2, 0);
+        envGroup.add(halo);
+
+        // Starfield
+        var starCount = 520;
+        var starPos = new Float32Array(starCount * 3);
+        for (var i = 0; i < starCount; i++) {
+          var r = 42 + Math.random() * 35;
+          var theta = Math.random() * Math.PI * 2;
+          var phi = Math.random() * Math.PI * 0.46;
+          starPos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+          starPos[i * 3 + 1] = r * Math.cos(phi) + 2;
+          starPos[i * 3 + 2] = r * Math.sin(phi) * Math.sin(theta);
+        }
+        var starGeo = new THREE.BufferGeometry();
+        starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+        envGroup.add(new THREE.Points(
+          starGeo,
+          new THREE.PointsMaterial({ color: 0xffe9b8, size: 0.18, transparent: true, opacity: 0.75 })
+        ));
+
+        // Courtyard Floor
+        var floor = new THREE.Mesh(
+          new THREE.CircleGeometry(24, 64),
+          new THREE.MeshStandardMaterial({ color: 0x261216, roughness: 0.35, metalness: 0.15 })
+        );
+        floor.rotation.x = -Math.PI / 2;
+        floor.receiveShadow = true;
+        envGroup.add(floor);
+
+        // Raised Stone Dais
+        var dais = new THREE.Mesh(
+          new THREE.CylinderGeometry(4.4, 4.7, 0.24, 48),
+          new THREE.MeshStandardMaterial({ map: stoneTex, roughness: 0.6, metalness: 0.1 })
+        );
+        dais.position.y = 0.12;
+        dais.receiveShadow = true;
+        envGroup.add(dais);
+
+        var goldMat = new THREE.MeshStandardMaterial({ color: 0xe3b649, metalness: 0.88, roughness: 0.22 });
+        var daisRing = new THREE.Mesh(new THREE.TorusGeometry(4.42, 0.045, 16, 64), goldMat);
+        daisRing.rotation.x = Math.PI / 2;
+        daisRing.position.y = 0.24;
+        envGroup.add(daisRing);
+
+        // Sacred Lotus Rangoli on Dais
+        var rangoli = new THREE.Mesh(
+          new THREE.CircleGeometry(3.85, 64),
+          new THREE.MeshStandardMaterial({ map: rangoliTex, transparent: true, roughness: 0.75 })
+        );
+        rangoli.rotation.x = -Math.PI / 2;
+        rangoli.position.y = 0.245;
+        envGroup.add(rangoli);
+
+        // 6 Carved Temple Pillars & Rear Torana Archway
+        var pillarStoneMat = new THREE.MeshStandardMaterial({
+          map: stoneTex,
+          color: 0xc9a882,
+          roughness: 0.58,
+          metalness: 0.12
+        });
+        var pillarCoords = [
+          [-4.6, 6.2], [4.6, 6.2],
+          [-5.6, 0.5], [5.6, 0.5],
+          [-4.8, -5.2], [4.8, -5.2]
+        ];
+        for (var p = 0; p < pillarCoords.length; p++) {
+          var px = pillarCoords[p][0];
+          var pz = pillarCoords[p][1];
+          var pGroup = new THREE.Group();
+          pGroup.position.set(px, 0, pz);
+
+          var base = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.65, 0.95), pillarStoneMat);
+          base.position.y = 0.325;
+          base.castShadow = true;
+          pGroup.add(base);
+
+          var shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.38, 4.6, 16), pillarStoneMat);
+          shaft.position.y = 2.95;
+          shaft.castShadow = true;
+          pGroup.add(shaft);
+
+          var bands = [1.3, 3.0, 4.7];
+          for (var b = 0; b < bands.length; b++) {
+            var band = new THREE.Mesh(new THREE.TorusGeometry(0.37, 0.04, 12, 24), goldMat);
+            band.rotation.x = Math.PI / 2;
+            band.position.y = bands[b];
+            pGroup.add(band);
+          }
+
+          var capital = new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.45, 1.05), pillarStoneMat);
+          capital.position.y = 5.45;
+          pGroup.add(capital);
+          envGroup.add(pGroup);
+        }
+
+        // Rear Torana Beam & Golden Shikhara
+        var beam = new THREE.Mesh(new THREE.BoxGeometry(10.8, 0.55, 0.85), pillarStoneMat);
+        beam.position.set(0, 5.85, -5.2);
+        envGroup.add(beam);
+
+        var shikhara = new THREE.Mesh(new THREE.ConeGeometry(1.15, 1.8, 4), goldMat);
+        shikhara.position.set(0, 7.0, -5.2);
+        shikhara.rotation.y = Math.PI / 4;
+        envGroup.add(shikhara);
+
+        // Volumetric Golden Light Ray
+        var ray = new THREE.Mesh(
+          new THREE.ConeGeometry(3.8, 12, 32, 1, true),
+          new THREE.MeshBasicMaterial({
+            color: 0xffcf70,
+            transparent: true,
+            opacity: 0.045,
+            side: THREE.DoubleSide,
+            depthWrite: false,
+            blending: THREE.AdditiveBlending
+          })
+        );
+        ray.position.set(0, 6.2, 0);
+        envGroup.add(ray);
+
+        // Floating Ambient Golden Dust Motes
+        var dustCount = 240;
+        var dustPos = new Float32Array(dustCount * 3);
+        for (var dIdx = 0; dIdx < dustCount; dIdx++) {
+          dustPos[dIdx * 3] = (Math.random() - 0.5) * 16;
+          dustPos[dIdx * 3 + 1] = 0.4 + Math.random() * 7.5;
+          dustPos[dIdx * 3 + 2] = (Math.random() - 0.5) * 16;
+        }
+        var dustGeo = new THREE.BufferGeometry();
+        dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
+        var goldDust = new THREE.Points(
+          dustGeo,
+          new THREE.PointsMaterial({
+            color: 0xf7d774,
+            size: 0.085,
+            transparent: true,
+            opacity: 0.75,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
+          })
+        );
+        envGroup.add(goldDust);
+
+        return { goldDust: goldDust };
+      }
+
+      /* Sculpted Multi-Tier Mangal Kalash Finial (LatheGeometry) */
+      function createKalashMesh(goldMat, scale) {
+        var s = scale || 1.0;
+        var pts = [
+          new THREE.Vector2(0.0, 0.0),
+          new THREE.Vector2(0.068 * s, 0.0),
+          new THREE.Vector2(0.046 * s, 0.03 * s),
+          new THREE.Vector2(0.10 * s, 0.11 * s),
+          new THREE.Vector2(0.092 * s, 0.185 * s),
+          new THREE.Vector2(0.038 * s, 0.235 * s),
+          new THREE.Vector2(0.065 * s, 0.265 * s),
+          new THREE.Vector2(0.05 * s, 0.305 * s),
+          new THREE.Vector2(0.022 * s, 0.355 * s),
+          new THREE.Vector2(0.0, 0.40 * s)
+        ];
+        var geo = new THREE.LatheGeometry(pts, 24);
+        var mesh = new THREE.Mesh(geo, goldMat);
+        mesh.castShadow = true;
+        return mesh;
+      }
+
+      /* Sculpted 3D Metallic Gold Hindu Swastik (NO '+' cross anywhere!) */
+      function createSwastik3D(goldMat) {
+        var swastik = new THREE.Group();
+        var t = 0.026;   // Bar thickness
+        var d = 0.022;   // Relief depth
+        var arm = 0.21;  // Central stem length
+        var hook = 0.11; // Clockwise bent tip length
+
+        var vStem = new THREE.Mesh(new THREE.BoxGeometry(t, arm, d), goldMat);
+        var hStem = new THREE.Mesh(new THREE.BoxGeometry(arm, t, d), goldMat);
+        swastik.add(vStem, hStem);
+
+        var topRight = new THREE.Mesh(new THREE.BoxGeometry(hook, t, d), goldMat);
+        topRight.position.set(hook * 0.5 - t * 0.5, arm * 0.5 - t * 0.5, 0);
+
+        var rightDown = new THREE.Mesh(new THREE.BoxGeometry(t, hook, d), goldMat);
+        rightDown.position.set(arm * 0.5 - t * 0.5, -(hook * 0.5 - t * 0.5), 0);
+
+        var bottomLeft = new THREE.Mesh(new THREE.BoxGeometry(hook, t, d), goldMat);
+        bottomLeft.position.set(-(hook * 0.5 - t * 0.5), -(arm * 0.5 - t * 0.5), 0);
+
+        var leftUp = new THREE.Mesh(new THREE.BoxGeometry(t, hook, d), goldMat);
+        leftUp.position.set(-(arm * 0.5 - t * 0.5), hook * 0.5 - t * 0.5, 0);
+
+        swastik.add(topRight, rightDown, bottomLeft, leftUp);
+
+        var dotGeo = new THREE.SphereGeometry(0.015, 10, 10);
+        var dots = [
+          [-0.048, 0.048],
+          [0.048, 0.048],
+          [0.048, -0.048],
+          [-0.048, -0.048]
+        ];
+        for (var i = 0; i < dots.length; i++) {
+          var dot = new THREE.Mesh(dotGeo, goldMat);
+          dot.position.set(dots[i][0], dots[i][1], d * 0.35);
+          swastik.add(dot);
+        }
+
+        return swastik;
+      }
+
+      /* 1. RESTORED CLASSIC TULSI CHAURA (VRINDAVAN) */
+      function buildTulsiVrindavan(scene, stoneTex) {
+        var group = new THREE.Group();
+        group.position.set(0, 0.24, 0.15);
+        scene.add(group);
+
+        var marbleMat = new THREE.MeshStandardMaterial({
+          map: stoneTex,
+          color: 0xebd9be,
+          roughness: 0.42,
+          metalness: 0.08
+        });
+        var maroonStoneMat = new THREE.MeshStandardMaterial({
+          color: 0x6b1423,
+          roughness: 0.46,
+          metalness: 0.16
+        });
+        var goldMat = new THREE.MeshStandardMaterial({
+          color: 0xebbc4c,
+          metalness: 0.9,
+          roughness: 0.18
+        });
+        var chunariMat = new THREE.MeshStandardMaterial({
+          color: 0xa81128,
+          roughness: 0.5,
+          side: THREE.DoubleSide
+        });
+
+        // Tier 1: Stepped Maroon & Cream Sandstone Plinths with Gold Border
+        var plinth1 = new THREE.Mesh(new THREE.BoxGeometry(1.92, 0.22, 1.92), maroonStoneMat);
+        plinth1.position.y = 0.11;
+        plinth1.castShadow = true;
+        plinth1.receiveShadow = true;
+        group.add(plinth1);
+
+        var plinthGoldTrim = new THREE.Mesh(new THREE.BoxGeometry(1.96, 0.032, 1.96), goldMat);
+        plinthGoldTrim.position.y = 0.225;
+        group.add(plinthGoldTrim);
+
+        var plinth2 = new THREE.Mesh(new THREE.BoxGeometry(1.62, 0.22, 1.62), marbleMat);
+        plinth2.position.y = 0.34;
+        plinth2.castShadow = true;
+        group.add(plinth2);
+
+        // Tier 2: Main Sanctum Body
+        var body = new THREE.Mesh(new THREE.BoxGeometry(1.26, 1.08, 1.26), marbleMat);
+        body.position.y = 0.99;
+        body.castShadow = true;
+        body.receiveShadow = true;
+        group.add(body);
+
+        // Embossed Golden "ॐ" Medallion Texture for Front Arch Crown
+        var omTex = createEmbossedOmTexture(256);
+        var omMedallionMat = new THREE.MeshStandardMaterial({
+          map: omTex,
+          metalness: 0.55,
+          roughness: 0.28
+        });
+
+        // 4 Classic Rounded-Arch Portals with Twin Gold Pillars, Maroon Niche & 3D Swastik
+        for (var i = 0; i < 4; i++) {
+          var side = new THREE.Group();
+          side.rotation.y = (i * Math.PI) / 2;
+
+          var outerFrame = new THREE.Mesh(new THREE.BoxGeometry(0.66, 0.78, 0.045), goldMat);
+          outerFrame.position.set(0, 0.96, 0.635);
+          side.add(outerFrame);
+
+          var recess = new THREE.Mesh(new THREE.BoxGeometry(0.56, 0.68, 0.055), maroonStoneMat);
+          recess.position.set(0, 0.95, 0.642);
+          side.add(recess);
+
+          // Rounded Golden Half-Arch + Twin Cylindrical Gold Columns
+          var archTorus = new THREE.Mesh(new THREE.TorusGeometry(0.24, 0.024, 12, 32, Math.PI), goldMat);
+          archTorus.position.set(0, 1.02, 0.675);
+          side.add(archTorus);
+
+          var leftCol = new THREE.Mesh(new THREE.CylinderGeometry(0.024, 0.026, 0.42, 14), goldMat);
+          leftCol.position.set(-0.24, 0.81, 0.675);
+          var rightCol = new THREE.Mesh(new THREE.CylinderGeometry(0.024, 0.026, 0.42, 14), goldMat);
+          rightCol.position.set(0.24, 0.81, 0.675);
+          side.add(leftCol, rightCol);
+
+          // Sculpted 3D Gold Swastik centered inside the rounded arch
+          var swastik = createSwastik3D(goldMat);
+          swastik.position.set(0, 0.94, 0.678);
+          side.add(swastik);
+
+          // Upright Embossed Golden "ॐ" Medallion above front arch (i === 0)
+          if (i === 0) {
+            var omBacking = new THREE.Mesh(new THREE.CylinderGeometry(0.116, 0.116, 0.022, 36), goldMat);
+            omBacking.rotation.x = Math.PI / 2;
+            omBacking.position.set(0, 1.43, 0.646);
+            side.add(omBacking);
+
+            // CircleGeometry faces +Z directly with upright planar UVs (zero X/Y rotation)
+            var omFront = new THREE.Mesh(new THREE.CircleGeometry(0.115, 36), omMedallionMat);
+            omFront.position.set(0, 1.43, 0.659);
+            side.add(omFront);
+
+            var omRing = new THREE.Mesh(new THREE.TorusGeometry(0.116, 0.014, 12, 36), goldMat);
+            omRing.position.set(0, 1.43, 0.661);
+            side.add(omRing);
+          }
+
+          group.add(side);
+        }
+
+        // Tier 3: Overhanging Maroon Cornice & Gold Planter Rim
+        var cornice = new THREE.Mesh(new THREE.BoxGeometry(1.52, 0.18, 1.52), maroonStoneMat);
+        cornice.position.y = 1.61;
+        cornice.castShadow = true;
+        group.add(cornice);
+
+        var goldRim = new THREE.Mesh(new THREE.BoxGeometry(1.56, 0.06, 1.56), goldMat);
+        goldRim.position.y = 1.71;
+        group.add(goldRim);
+
+        // 4 Sculpted Multi-Tier LatheGeometry Mangal Kalash Finials at the Corners
+        var corners = [[-0.64, -0.64], [0.64, -0.64], [-0.64, 0.64], [0.64, 0.64]];
+        for (var c = 0; c < corners.length; c++) {
+          var kalashFinial = createKalashMesh(goldMat, 1.08);
+          kalashFinial.position.set(corners[c][0], 1.74, corners[c][1]);
+          group.add(kalashFinial);
+        }
+
+        // Sacred Soil Bed inside Planter
+        var soil = new THREE.Mesh(
+          new THREE.BoxGeometry(1.14, 0.1, 1.14),
+          new THREE.MeshStandardMaterial({ color: 0x2f1b0e, roughness: 0.96 })
+        );
+        soil.position.y = 1.71;
+        group.add(soil);
+
+        // Draped Crimson & Gold Bridal Chunari Wrap + Zari Border around Chaura
+        var chunariWrap = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.76, 0.81, 0.36, 4, 1, true),
+          chunariMat
+        );
+        chunariWrap.position.y = 1.38;
+        chunariWrap.rotation.y = Math.PI / 4;
+        group.add(chunariWrap);
+
+        var chunariGoldBorder = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.812, 0.815, 0.04, 4, 1, true),
+          goldMat
+        );
+        chunariGoldBorder.position.y = 1.21;
+        chunariGoldBorder.rotation.y = Math.PI / 4;
+        group.add(chunariGoldBorder);
+
+        var chunariCurve = new THREE.CatmullRomCurve3([
+          new THREE.Vector3(-0.36, 1.76, 0.45),
+          new THREE.Vector3(-0.64, 1.66, 0.69),
+          new THREE.Vector3(-0.76, 1.2, 0.74),
+          new THREE.Vector3(-0.82, 0.64, 0.68)
+        ]);
+        var chunariSash = new THREE.Mesh(new THREE.TubeGeometry(chunariCurve, 24, 0.052, 8, false), chunariMat);
+        chunariSash.scale.set(1.35, 1.0, 0.45);
+        group.add(chunariSash);
+
+        // Draped Catenary Marigold Garlands on all 4 sides
+        var orangeMat = new THREE.MeshStandardMaterial({
+          color: 0xff8c1a,
+          roughness: 0.55,
+          emissive: 0x331200,
+          emissiveIntensity: 0.25
+        });
+        var yellowMat = new THREE.MeshStandardMaterial({ color: 0xffcf24, roughness: 0.5 });
+        var blossomGeo = new THREE.DodecahedronGeometry(0.058, 1);
+
+        for (var sIdx = 0; sIdx < 4; sIdx++) {
+          var g = new THREE.Group();
+          g.rotation.y = (sIdx * Math.PI) / 2;
+          var steps = 13;
+          for (var k = 0; k <= steps; k++) {
+            var t = k / steps;
+            var gx = (t - 0.5) * 1.36;
+            var sag = Math.sin(t * Math.PI) * 0.25;
+            var blossom = new THREE.Mesh(blossomGeo, k % 3 === 0 ? yellowMat : orangeMat);
+            blossom.position.set(gx, 1.56 - sag, 0.79);
+            g.add(blossom);
+          }
+          group.add(g);
+        }
+
+        return group;
+      }
+
+      /* 2. GENUINE BOTANICAL & REALISTIC 3D TULSI PAUDHA (OCIMUM TENUIFLORUM) */
+      function buildTulsiPlant(scene, interactables) {
+        var group = new THREE.Group();
+        group.position.set(0, 1.94, 0.15);
+        scene.add(group);
+
+        var swayingBranches = [];
+
+        // Materials: Woody bark trunk, Krishna-Tulsi purple-green stems, botanical serrated leaves & Manjari florets
+        var woodyBarkMat = new THREE.MeshStandardMaterial({
+          color: 0x4d3423,
+          roughness: 0.88,
+          metalness: 0.02
+        });
+        var krishnaStemMat = new THREE.MeshStandardMaterial({
+          color: 0x4a313a, // Authentic purplish-green quadrangular Krishna-Tulsi stem
+          roughness: 0.68
+        });
+
+        var leafTexPair = createBotanicalTulsiLeafTextures(256);
+        var leafMat = new THREE.MeshStandardMaterial({
+          map: leafTexPair.colorTex,
+          bumpMap: leafTexPair.bumpTex,
+          bumpScale: 0.018,
+          alphaTest: 0.46,
+          roughness: 0.36,
+          metalness: 0.04,
+          side: THREE.DoubleSide
+        });
+
+        var leafGeo = createSculptedTulsiLeafGeo();
+        var calyxMat = new THREE.MeshStandardMaterial({ color: 0x6b2450, roughness: 0.55 });
+        var floretMat = new THREE.MeshStandardMaterial({ color: 0xf4e4ff, roughness: 0.4 });
+        var calyxGeo = new THREE.ConeGeometry(0.016, 0.032, 6);
+        var floretGeo = new THREE.SphereGeometry(0.013, 6, 6);
+
+        // Helper: Build a Multi-Whorl Tulsi Manjari Inflorescence Spike (Verticillaster Raceme)
+        function createManjariSpike(heightScale) {
+          var hs = heightScale || 1.0;
+          var spikeGroup = new THREE.Group();
+          var spikeLen = 0.25 * hs;
+
+          // Slender purple-green rachis axis
+          var rachis = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.004, 0.008, spikeLen, 6),
+            krishnaStemMat
+          );
+          rachis.position.y = spikeLen * 0.5;
+          spikeGroup.add(rachis);
+
+          // 7 stacked verticillaster whorls of purple calyx bracts & pale lavender florets
+          var whorls = 7;
+          for (var w = 0; w < whorls; w++) {
+            var wt = w / (whorls - 1);
+            var wy = 0.03 + wt * (spikeLen - 0.04);
+            var whorlScale = 1.0 - wt * 0.45;
+            var whorlGroup = new THREE.Group();
+            whorlGroup.position.y = wy;
+            whorlGroup.rotation.y = w * 0.78;
+
+            for (var f = 0; f < 4; f++) {
+              var fa = (f / 4) * Math.PI * 2;
+              var bract = new THREE.Mesh(calyxGeo, calyxMat);
+              bract.position.set(Math.cos(fa) * 0.016 * whorlScale, 0, Math.sin(fa) * 0.016 * whorlScale);
+              bract.rotation.z = -Math.cos(fa) * 0.85;
+              bract.rotation.x = Math.sin(fa) * 0.85;
+              bract.scale.setScalar(whorlScale);
+              whorlGroup.add(bract);
+
+              if (w >= 1 && w <= 5) {
+                var floret = new THREE.Mesh(floretGeo, floretMat);
+                floret.position.set(Math.cos(fa) * 0.025 * whorlScale, 0.004, Math.sin(fa) * 0.025 * whorlScale);
+                floret.scale.setScalar(whorlScale);
+                whorlGroup.add(floret);
+              }
+            }
+            spikeGroup.add(whorlGroup);
+          }
+
+          return spikeGroup;
+        }
+
+        // Helper: Populate Opposite Decussate Leaf Pairs along any 3D CatmullRomCurve3
+        function populateOppositeDecussateLeaves(parentGroup, curve, pairsCount, baseLeafScale, includeTopManjari) {
+          for (var p = 1; p <= pairsCount; p++) {
+            var t = p / (pairsCount + 0.5);
+            var pt = curve.getPointAt(t);
+            var tangent = curve.getTangentAt(t).normalize();
+
+            // Build orthonormal frame aligned with the branch tangent
+            var refUp = Math.abs(tangent.y) > 0.92 ? new THREE.Vector3(1, 0, 0) : new THREE.Vector3(0, 1, 0);
+            var sideA = new THREE.Vector3().crossVectors(tangent, refUp).normalize();
+            var sideB = new THREE.Vector3().crossVectors(tangent, sideA).normalize();
+
+            // Decussate phyllotaxy: rotate 90 degrees at each alternating node!
+            var axis = p % 2 === 0 ? sideA : sideB;
+            var taperScale = baseLeafScale * (1.12 - t * 0.42);
+
+            for (var dir = -1; dir <= 1; dir += 2) {
+              var leafHolder = new THREE.Group();
+              leafHolder.position.copy(pt);
+
+              var outDir = axis.clone().multiplyScalar(dir);
+              // Aim leaf outward and slightly upward along the branch
+              var aimTarget = pt.clone().add(outDir.multiplyScalar(0.85)).add(tangent.clone().multiplyScalar(0.45));
+              leafHolder.lookAt(aimTarget);
+              leafHolder.rotateX(Math.PI * 0.44);
+              leafHolder.rotateZ((Math.random() - 0.5) * 0.25);
+
+              var leafMesh = new THREE.Mesh(leafGeo, leafMat);
+              leafMesh.scale.setScalar(taperScale * (0.9 + Math.random() * 0.22));
+              leafMesh.castShadow = true;
+              leafHolder.add(leafMesh);
+              parentGroup.add(leafHolder);
+            }
+          }
+
+          // Crown leaf cluster + optional Manjari flower spike at the tip
+          var tipPt = curve.getPointAt(1.0);
+          for (var c = 0; c < 4; c++) {
+            var ca = (c / 4) * Math.PI * 2 + Math.random() * 0.3;
+            var crownLeaf = new THREE.Mesh(leafGeo, leafMat);
+            crownLeaf.position.copy(tipPt);
+            crownLeaf.rotation.set(0.68, ca, 0);
+            crownLeaf.scale.setScalar(baseLeafScale * 0.55);
+            parentGroup.add(crownLeaf);
+          }
+
+          if (includeTopManjari) {
+            var manjari = createManjariSpike(0.85 + Math.random() * 0.3);
+            manjari.position.copy(tipPt);
+            manjari.rotation.set((Math.random() - 0.5) * 0.22, Math.random() * Math.PI, (Math.random() - 0.5) * 0.22);
+            parentGroup.add(manjari);
+          }
+        }
+
+        // 1. Organic Curved & Tapering Main Woody Trunk + Root Flare
+        var trunkCurve = new THREE.CatmullRomCurve3([
+          new THREE.Vector3(0.0, -0.02, 0.0),
+          new THREE.Vector3(0.018, 0.24, -0.012),
+          new THREE.Vector3(-0.014, 0.52, 0.015),
+          new THREE.Vector3(0.008, 0.78, -0.006),
+          new THREE.Vector3(0.0, 0.96, 0.0)
+        ]);
+        var trunkMesh = new THREE.Mesh(
+          createTaperedTubeGeometry(trunkCurve, 22, 0.048, 0.013, 10),
+          woodyBarkMat
+        );
+        trunkMesh.castShadow = true;
+        group.add(trunkMesh);
+
+        // Exposed Woody Root Buttresses entering the soil
+        for (var r = 0; r < 4; r++) {
+          var ra = (r / 4) * Math.PI * 2 + 0.4;
+          var rootCurve = new THREE.CatmullRomCurve3([
+            new THREE.Vector3(0, 0.14, 0),
+            new THREE.Vector3(Math.cos(ra) * 0.06, 0.04, Math.sin(ra) * 0.06),
+            new THREE.Vector3(Math.cos(ra) * 0.13, -0.02, Math.sin(ra) * 0.13)
+          ]);
+          var rootMesh = new THREE.Mesh(
+            createTaperedTubeGeometry(rootCurve, 8, 0.022, 0.007, 6),
+            woodyBarkMat
+          );
+          group.add(rootMesh);
+        }
+
+        // Decussate leaves & central crown Manjari on main trunk
+        populateOppositeDecussateLeaves(group, trunkCurve, 5, 1.15, true);
+
+        // 2. 7 Primary Woody Branches Forking into 21 Krishna-Tulsi Tender Shoots (~175 Leaves Total)
+        var branchCount = 7;
+        for (var b = 0; b < branchCount; b++) {
+          var tAttach = 0.22 + (b / branchCount) * 0.66;
+          var attachPt = trunkCurve.getPointAt(tAttach);
+          var azimuth = b * 2.39996; // Golden-angle phyllotactic spiral for natural fullness
+          var reach = 0.44 * (1.08 - tAttach * 0.42);
+          var rise = 0.34 * (1.05 - tAttach * 0.25);
+
+          var branchPivot = new THREE.Group();
+          branchPivot.position.copy(attachPt);
+          group.add(branchPivot);
+
+          var midPt = new THREE.Vector3(
+            Math.cos(azimuth) * reach * 0.52,
+            rise * 0.48,
+            Math.sin(azimuth) * reach * 0.52
+          );
+          var endPt = new THREE.Vector3(
+            Math.cos(azimuth) * reach,
+            rise,
+            Math.sin(azimuth) * reach
+          );
+
+          var branchCurve = new THREE.CatmullRomCurve3([
+            new THREE.Vector3(0, 0, 0),
+            midPt,
+            endPt
+          ]);
+          var branchMesh = new THREE.Mesh(
+            createTaperedTubeGeometry(branchCurve, 14, 0.021, 0.008, 7),
+            woodyBarkMat
+          );
+          branchMesh.castShadow = true;
+          branchPivot.add(branchMesh);
+
+          populateOppositeDecussateLeaves(branchPivot, branchCurve, 4, 1.05 - tAttach * 0.2, b % 2 === 0);
+
+          // 3 Sub-Shoots forking off each primary branch
+          for (var sub = 0; sub < 3; sub++) {
+            var subT = 0.35 + sub * 0.28;
+            var subStart = branchCurve.getPointAt(subT);
+            var subAngle = azimuth + (sub - 1) * 0.72;
+            var subReach = reach * (0.58 - sub * 0.08);
+            var subRise = 0.22 + (sub % 2) * 0.07;
+
+            var subCurve = new THREE.CatmullRomCurve3([
+              subStart,
+              new THREE.Vector3(
+                subStart.x + Math.cos(subAngle) * subReach * 0.5,
+                subStart.y + subRise * 0.55,
+                subStart.z + Math.sin(subAngle) * subReach * 0.5
+              ),
+              new THREE.Vector3(
+                subStart.x + Math.cos(subAngle) * subReach,
+                subStart.y + subRise,
+                subStart.z + Math.sin(subAngle) * subReach
+              )
+            ]);
+
+            var subMesh = new THREE.Mesh(
+              createTaperedTubeGeometry(subCurve, 10, 0.011, 0.004, 6),
+              krishnaStemMat
+            );
+            subMesh.castShadow = true;
+            branchPivot.add(subMesh);
+
+            populateOppositeDecussateLeaves(
+              branchPivot,
+              subCurve,
+              3,
+              0.86 - tAttach * 0.15,
+              sub === 1 || (b + sub) % 3 === 0
+            );
+          }
+
+          swayingBranches.push({
+            pivot: branchPivot,
+            phase: b * 0.92,
+            amp: 0.032 + (1 - tAttach) * 0.018
+          });
+        }
+
+        // 3. Rising Sacred Golden Aura Ring & Warm PointLight
+        var auraMat = new THREE.MeshBasicMaterial({
+          color: 0xffdf73,
+          transparent: true,
+          opacity: 0.0
+        });
+        var auraRing = new THREE.Mesh(new THREE.TorusGeometry(0.62, 0.024, 16, 48), auraMat);
+        auraRing.rotation.x = Math.PI / 2;
+        auraRing.position.y = 0.45;
+        group.add(auraRing);
+
+        var auraLight = new THREE.PointLight(0xffd257, 0, 5.8);
+        auraLight.position.set(0, 0.68, 0);
+        group.add(auraLight);
+
+        // Raycast Hitbox
+        var hitMesh = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.54, 0.54, 1.25, 12),
+          new THREE.MeshBasicMaterial({ visible: false })
+        );
+        hitMesh.position.y = 0.6;
+        hitMesh.userData = {
+          type: 'tulsi',
+          label: '🌿 पवित्र तुलसी महारानी (Tap for Blessing)',
+          title: 'श्री तुलसी महारानी',
+          body: 'कार्तिक शुक्ल देवउठनी एकादशी के पावन अवसर पर माता तुलसी और शालिग्राम भगवान का दिव्य विवाह सृष्टि में सुख, सौभाग्य और मंगल का संचार करता है।'
+        };
+        group.add(hitMesh);
+        interactables.push(hitMesh);
+
+        var state = { active: false, timer: 0 };
+        return {
+          triggerAura: function () {
+            state.active = true;
+            state.timer = 3.2;
+          },
+          update: function (elapsed, dt) {
+            // Subtle organic temple breeze swaying branches and foliage
+            group.rotation.z = Math.sin(elapsed * 1.15) * 0.014;
+            for (var i = 0; i < swayingBranches.length; i++) {
+              var br = swayingBranches[i];
+              br.pivot.rotation.z = Math.sin(elapsed * 1.85 + br.phase) * br.amp;
+              br.pivot.rotation.x = Math.cos(elapsed * 1.45 + br.phase) * (br.amp * 0.75);
+            }
+
+            if (state.active) {
+              state.timer -= dt;
+              var progress = Math.max(0, state.timer / 3.2);
+              auraMat.opacity = Math.sin(progress * Math.PI) * 0.88;
+              auraRing.scale.setScalar(1 + (1 - progress) * 0.68);
+              auraRing.position.y = 0.25 + (1 - progress) * 0.85;
+              auraLight.intensity = Math.sin(progress * Math.PI) * 3.6;
+              if (state.timer <= 0) {
+                state.active = false;
+                auraMat.opacity = 0;
+                auraLight.intensity = 0;
+              }
+            }
+          }
+        };
+      }
+
+      /* 3. RESTORED CLASSIC 4-PILLAR WEDDING MANDAP, SHALIGRAM BHAGWAN & GATHBANDHAN */
+      function createBananaLeafMesh(leafMat, ribMat) {
+        var leafGroup = new THREE.Group();
+        var shape = new THREE.Shape();
+        shape.moveTo(0, 0);
+        shape.quadraticCurveTo(0.25, 0.48, 0.21, 1.18);
+        shape.quadraticCurveTo(0.13, 1.72, 0, 2.02);
+        shape.quadraticCurveTo(-0.13, 1.72, -0.21, 1.18);
+        shape.quadraticCurveTo(-0.25, 0.48, 0, 0);
+
+        var geo = new THREE.ShapeGeometry(shape, 16);
+        var pos = geo.attributes.position;
+        for (var i = 0; i < pos.count; i++) {
+          var x = pos.getX(i);
+          var y = pos.getY(i);
+          var bendZ = Math.pow(y / 2.02, 1.85) * 0.48 - Math.abs(x) * 0.24;
+          pos.setZ(i, bendZ);
+        }
+        geo.computeVertexNormals();
+        var blade = new THREE.Mesh(geo, leafMat);
+        blade.castShadow = true;
+        leafGroup.add(blade);
+
+        // Central Banana Leaf Midrib Stem
+        var ribCurve = new THREE.CatmullRomCurve3([
+          new THREE.Vector3(0, 0, 0),
+          new THREE.Vector3(0, 1.0, 0.13),
+          new THREE.Vector3(0, 1.98, 0.46)
+        ]);
+        var rib = new THREE.Mesh(createTaperedTubeGeometry(ribCurve, 12, 0.018, 0.005, 6), ribMat);
+        leafGroup.add(rib);
+
+        return leafGroup;
+      }
+
+      function buildSacredMandap(scene, interactables) {
+        var group = new THREE.Group();
+        group.position.set(0, 0.24, 0);
+        scene.add(group);
+
+        var woodMat = new THREE.MeshStandardMaterial({ color: 0x4d151d, roughness: 0.4, metalness: 0.22 });
+        var goldMat = new THREE.MeshStandardMaterial({ color: 0xe6b647, metalness: 0.9, roughness: 0.2 });
+        var crimsonSilkMat = new THREE.MeshStandardMaterial({
+          color: 0x8f1126,
+          roughness: 0.55,
+          side: THREE.DoubleSide
+        });
+        var bananaLeafMat = new THREE.MeshStandardMaterial({
+          color: 0x26732a,
+          roughness: 0.38,
+          metalness: 0.05,
+          side: THREE.DoubleSide
+        });
+        var bananaRibMat = new THREE.MeshStandardMaterial({ color: 0x4e9a3c, roughness: 0.45 });
+        var orangeMat = new THREE.MeshStandardMaterial({ color: 0xff8c1a, roughness: 0.5 });
+        var yellowMat = new THREE.MeshStandardMaterial({ color: 0xffcf24, roughness: 0.5 });
+
+        var corners = [
+          [-2.05, 2.05],
+          [2.05, 2.05],
+          [-2.05, -1.85],
+          [2.05, -1.85]
+        ];
+        for (var i = 0; i < corners.length; i++) {
+          var x = corners[i][0];
+          var z = corners[i][1];
+          var col = new THREE.Group();
+          col.position.set(x, 0, z);
+
+          var ped = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.26, 0.34), woodMat);
+          ped.position.y = 0.13;
+          col.add(ped);
+
+          var post = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.135, 3.65, 18), woodMat);
+          post.position.y = 1.825;
+          post.castShadow = true;
+          col.add(post);
+
+          var ringYs = [0.35, 1.3, 2.35, 3.4];
+          for (var r = 0; r < ringYs.length; r++) {
+            var ring = new THREE.Mesh(new THREE.TorusGeometry(0.14, 0.025, 10, 24), goldMat);
+            ring.rotation.x = Math.PI / 2;
+            ring.position.y = ringYs[r];
+            col.add(ring);
+          }
+
+          // Twin Curved Banana Leaves (Kadali) arching gracefully outward from each pillar
+          var leaf1 = createBananaLeafMesh(bananaLeafMat, bananaRibMat);
+          leaf1.position.set(0, 1.95, 0);
+          leaf1.rotation.y = x > 0 ? Math.PI * 0.45 : -Math.PI * 0.45;
+          leaf1.rotation.x = 0.15;
+          col.add(leaf1);
+
+          var leaf2 = createBananaLeafMesh(bananaLeafMat, bananaRibMat);
+          leaf2.scale.setScalar(0.86);
+          leaf2.position.set(0, 2.15, 0);
+          leaf2.rotation.y = z > 0 ? 0.25 : Math.PI - 0.25;
+          leaf2.rotation.x = 0.18;
+          col.add(leaf2);
+
+          // Sculpted Mangal Kalash Pot at each pillar foot
+          var kalash = createKalashMesh(goldMat, 1.15);
+          kalash.position.set(x > 0 ? -0.26 : 0.26, 0.0, z > 0 ? 0.18 : -0.18);
+          col.add(kalash);
+
+          group.add(col);
+        }
+
+        // Overhead Mandap Beams, Hanging Marigold Torans & Tiered Crimson-Gold Canopy
+        var roofFrame = new THREE.Mesh(new THREE.BoxGeometry(4.45, 0.18, 4.25), goldMat);
+        roofFrame.position.set(0, 3.65, 0.1);
+        group.add(roofFrame);
+
+        var roofInner = new THREE.Mesh(new THREE.BoxGeometry(4.25, 0.22, 4.05), crimsonSilkMat);
+        roofInner.position.set(0, 3.78, 0.1);
+        group.add(roofInner);
+
+        // Hanging Marigold Festoons along front & side Mandap beams
+        var toranGeo = new THREE.DodecahedronGeometry(0.052, 1);
+        for (var f = 0; f <= 20; f++) {
+          var ft = f / 20;
+          var fx = (ft - 0.5) * 3.9;
+          var fsag = Math.abs(Math.sin(ft * Math.PI * 2)) * 0.28;
+          var fb = new THREE.Mesh(toranGeo, f % 2 === 0 ? orangeMat : yellowMat);
+          fb.position.set(fx, 3.52 - fsag, 2.08);
+          group.add(fb);
+        }
+
+        var canopyTop = new THREE.Mesh(new THREE.ConeGeometry(3.15, 1.18, 4), crimsonSilkMat);
+        canopyTop.position.set(0, 4.42, 0.1);
+        canopyTop.rotation.y = Math.PI / 4;
+        group.add(canopyTop);
+
+        var kalashCrown = createKalashMesh(goldMat, 1.35);
+        kalashCrown.position.set(0, 4.98, 0.1);
+        group.add(kalashCrown);
+
+        // Golden Prabhavali Shrine Backdrop with Rotating Sudarshana Chakra & Urdhva Pundra Tilak
+        var shrineGroup = new THREE.Group();
+        shrineGroup.position.set(0, 0.0, -1.25);
+        group.add(shrineGroup);
+
+        var pedestal = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.55, 0.72), crimsonSilkMat);
+        pedestal.position.y = 0.275;
+        shrineGroup.add(pedestal);
+
+        var archRing = new THREE.Mesh(new THREE.TorusGeometry(0.78, 0.068, 16, 48, Math.PI), goldMat);
+        archRing.position.set(0, 1.35, 0);
+        shrineGroup.add(archRing);
+
+        var chakra = new THREE.Mesh(new THREE.TorusGeometry(0.25, 0.03, 12, 24), goldMat);
+        chakra.position.set(0, 1.45, 0.02);
+        shrineGroup.add(chakra);
+
+        var tilakU = new THREE.Mesh(
+          new THREE.TorusGeometry(0.11, 0.018, 8, 20, Math.PI),
+          new THREE.MeshBasicMaterial({ color: 0xfff3c4 })
+        );
+        tilakU.rotation.z = Math.PI;
+        tilakU.position.set(0, 1.48, 0.04);
+        shrineGroup.add(tilakU);
+
+        // Sacred Shaligram Shila on Golden Lotus Thali beside Tulsi Vrindavan
+        var shaligramGroup = new THREE.Group();
+        shaligramGroup.position.set(-1.14, 0.0, 0.58);
+        group.add(shaligramGroup);
+
+        var thali = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.28, 0.08, 24), goldMat);
+        thali.position.y = 0.04;
+        shaligramGroup.add(thali);
+
+        var shila = new THREE.Mesh(
+          new THREE.SphereGeometry(0.17, 24, 20),
+          new THREE.MeshStandardMaterial({ color: 0x16161a, roughness: 0.26, metalness: 0.35 })
+        );
+        shila.scale.set(1.15, 0.85, 0.95);
+        shila.position.y = 0.2;
+        shaligramGroup.add(shila);
+
+        var goldRing = new THREE.Mesh(new THREE.TorusGeometry(0.16, 0.015, 10, 24), goldMat);
+        goldRing.rotation.x = Math.PI / 2;
+        goldRing.position.y = 0.2;
+        shaligramGroup.add(goldRing);
+
+        // Sculpted 3D Crimson-and-Gold Gathbandhan Connecting Shaligram Bhagwan & Mata Tulsi
+        var gathCurve = new THREE.CatmullRomCurve3([
+          new THREE.Vector3(-1.05, 0.25, 0.58),
+          new THREE.Vector3(-0.78, 0.52, 0.62),
+          new THREE.Vector3(-0.48, 1.15, 0.52),
+          new THREE.Vector3(-0.18, 1.85, 0.24)
+        ]);
+        var gathTube = new THREE.Mesh(new THREE.TubeGeometry(gathCurve, 28, 0.032, 10, false), crimsonSilkMat);
+        group.add(gathTube);
+
+        var knot1 = new THREE.Mesh(new THREE.TorusGeometry(0.048, 0.014, 10, 20), goldMat);
+        knot1.position.set(-0.62, 0.82, 0.58);
+        knot1.rotation.set(0.4, 0.5, 0.6);
+        group.add(knot1);
+
+        var shilaHit = new THREE.Mesh(
+          new THREE.SphereGeometry(0.38, 12, 12),
+          new THREE.MeshBasicMaterial({ visible: false })
+        );
+        shilaHit.position.y = 0.2;
+        shilaHit.userData = {
+          type: 'shaligram',
+          label: '🕉️ श्री शालिग्राम शिला (Tap for Info)',
+          title: 'शालिग्राम भगवान एवं पावन गठबंधन',
+          body: 'शालिग्राम भगवान और माता तुलसी का पावन विवाह गठबंधन वैदिक मंत्रोच्चार एवं मंगल ध्वनि के साथ संपन्न होता है।'
+        };
+        shaligramGroup.add(shilaHit);
+        interactables.push(shilaHit);
+
+        return {
+          update: function (elapsed) {
+            chakra.rotation.z = elapsed * 0.45;
+          }
+        };
+      }
+
+      /* Build 3D Swinging Brass Temple Bell (LatheGeometry) */
+      function buildTempleBell(scene, interactables) {
+        var pivot = new THREE.Group();
+        pivot.position.set(1.55, 3.65, 1.85);
+        scene.add(pivot);
+
+        var state = { swingAmplitude: 0, swingTime: 0 };
+        var brassMat = new THREE.MeshStandardMaterial({
+          color: 0xebbc47,
+          metalness: 0.92,
+          roughness: 0.18
+        });
+
+        var chain = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.55, 8), brassMat);
+        chain.position.y = -0.275;
+        pivot.add(chain);
+
+        var points = [
+          new THREE.Vector2(0.0, -0.55),
+          new THREE.Vector2(0.08, -0.56),
+          new THREE.Vector2(0.14, -0.66),
+          new THREE.Vector2(0.18, -0.82),
+          new THREE.Vector2(0.26, -0.95),
+          new THREE.Vector2(0.22, -0.96),
+          new THREE.Vector2(0.14, -0.82),
+          new THREE.Vector2(0.0, -0.62)
+        ];
+        var bellMesh = new THREE.Mesh(new THREE.LatheGeometry(points, 28), brassMat);
+        bellMesh.castShadow = true;
+        pivot.add(bellMesh);
+
+        var clapper = new THREE.Mesh(new THREE.SphereGeometry(0.045, 12, 12), brassMat);
+        clapper.position.y = -0.93;
+        pivot.add(clapper);
+
+        var hit = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.34, 0.38, 0.75, 14),
+          new THREE.MeshBasicMaterial({ visible: false })
+        );
+        hit.position.y = -0.72;
+        hit.userData = {
+          type: 'bell',
+          label: '🔔 पावन मंदिर घंटा (Tap to Ring Bell)',
+          title: 'मंगल नाद — मंदिर घंटा',
+          body: 'शंख और घंटे की पवित्र ध्वनि वातावरण में सकारात्मक ऊर्जा और भक्ति का संचार करती है।'
+        };
+        pivot.add(hit);
+        interactables.push(hit);
+
+        return {
+          ring: function (amplitude) {
+            state.swingAmplitude = amplitude || 0.44;
+            state.swingTime = 0;
+          },
+          update: function (dt) {
+            if (state.swingAmplitude > 0.002) {
+              state.swingTime += dt * 7.5;
+              pivot.rotation.z = Math.sin(state.swingTime) * state.swingAmplitude;
+              pivot.rotation.x = Math.cos(state.swingTime * 0.8) * (state.swingAmplitude * 0.35);
+              state.swingAmplitude *= Math.pow(0.45, dt);
+            } else {
+              pivot.rotation.z = 0;
+              pivot.rotation.x = 0;
+            }
+          }
+        };
+      }
+
+      /* 4. RESTORED CLASSIC SCULPTED LATHE-TURNED BRASS DIYAS (STATE-GATED) */
+      function buildDiyaManager(scene, interactables, onStateChange) {
+        var diyas = [];
+        var ignitingSequence = false;
+        var brassMat = new THREE.MeshStandardMaterial({
+          color: 0xebb93e,
+          metalness: 0.92,
+          roughness: 0.19
+        });
+        var gheeMat = new THREE.MeshStandardMaterial({
+          color: 0xd98a1e,
+          roughness: 0.25,
+          metalness: 0.15
+        });
+
+        var diyaPts = [
+          new THREE.Vector2(0.0, 0.0),
+          new THREE.Vector2(0.11, 0.0),
+          new THREE.Vector2(0.095, 0.02),
+          new THREE.Vector2(0.055, 0.045),
+          new THREE.Vector2(0.145, 0.085),
+          new THREE.Vector2(0.175, 0.125),
+          new THREE.Vector2(0.155, 0.13),
+          new THREE.Vector2(0.125, 0.095),
+          new THREE.Vector2(0.0, 0.075)
+        ];
+        var diyaLatheGeo = new THREE.LatheGeometry(diyaPts, 24);
+
+        var flamePts = [
+          new THREE.Vector2(0.0, 0.0),
+          new THREE.Vector2(0.036, 0.035),
+          new THREE.Vector2(0.042, 0.085),
+          new THREE.Vector2(0.022, 0.15),
+          new THREE.Vector2(0.0, 0.21)
+        ];
+        var flameGeo = new THREE.LatheGeometry(flamePts, 16);
+
+        var count = 8;
+        var radius = 2.28;
+        for (var i = 0; i < count; i++) {
+          var angle = (i / count) * Math.PI * 2 + Math.PI / 8;
+          var x = Math.cos(angle) * radius;
+          var z = Math.sin(angle) * radius + 0.15;
+
+          var diyaGroup = new THREE.Group();
+          diyaGroup.position.set(x, 0.245, z);
+          diyaGroup.rotation.y = -angle + Math.PI / 2;
+
+          var lampBody = new THREE.Mesh(diyaLatheGeo, brassMat);
+          lampBody.castShadow = true;
+          diyaGroup.add(lampBody);
+
+          var spout = new THREE.Mesh(new THREE.ConeGeometry(0.045, 0.11, 12), brassMat);
+          spout.rotation.x = Math.PI * 0.44;
+          spout.position.set(0, 0.115, 0.175);
+          diyaGroup.add(spout);
+
+          var gheePool = new THREE.Mesh(new THREE.CircleGeometry(0.13, 18), gheeMat);
+          gheePool.rotation.x = -Math.PI / 2;
+          gheePool.position.y = 0.098;
+          diyaGroup.add(gheePool);
+
+          var flamePivot = new THREE.Group();
+          flamePivot.position.set(0, 0.125, 0.19);
+          flamePivot.visible = false; // STARTS UNLIT
+
+          var outerFlame = new THREE.Mesh(
+            flameGeo,
+            new THREE.MeshBasicMaterial({ color: 0xff8c1a, transparent: true, opacity: 0.88 })
+          );
+          var innerFlame = new THREE.Mesh(
+            flameGeo,
+            new THREE.MeshBasicMaterial({ color: 0xfff6c2 })
+          );
+          innerFlame.scale.set(0.56, 0.68, 0.56);
+          flamePivot.add(outerFlame, innerFlame);
+          diyaGroup.add(flamePivot);
+
+          var light = new THREE.PointLight(0xff9824, 0, 4.6, 1.65); // STARTS UNLIT
+          light.position.set(0, 0.32, 0.19);
+          diyaGroup.add(light);
+
+          var hit = new THREE.Mesh(
+            new THREE.SphereGeometry(0.3, 12, 12),
+            new THREE.MeshBasicMaterial({ visible: false })
+          );
+          hit.position.y = 0.15;
+
+          var record = {
+            group: diyaGroup,
+            flame: flamePivot,
+            light: light,
+            isLit: false,
+            phase: i * 1.17,
+            hit: hit
+          };
+          hit.userData = {
+            type: 'diya',
+            diya: record,
+            label: '🪔 दीप प्रज्वलित करें (Tap to Light Diya)',
+            title: 'पावन घृत दीप',
+            body: 'तुलसी विवाह की संध्या पर दीपदान करने से घर-आंगन में शालिग्राम भगवान और माता तुलसी की कृपा से सुख-समृद्धि का वास होता है।'
+          };
+          diyaGroup.add(hit);
+          interactables.push(hit);
+
+          scene.add(diyaGroup);
+          diyas.push(record);
+        }
+
+        function areAllLit() {
+          for (var i = 0; i < diyas.length; i++) {
+            if (!diyas[i].isLit) return false;
+          }
+          return true;
+        }
+
+        function igniteSingle(d) {
+          if (d.isLit) return false;
+          d.isLit = true;
+          d.flame.visible = true;
+          d.light.intensity = 1.55;
+          d.hit.userData.label = '🪔 प्रज्वलित घृत दीप';
+          if (onStateChange) onStateChange(areAllLit());
+          return true;
+        }
+
+        function igniteAllSequential(onEachIgnite) {
+          if (areAllLit() || ignitingSequence) return false;
+          ignitingSequence = true;
+          var unlit = [];
+          for (var i = 0; i < diyas.length; i++) {
+            if (!diyas[i].isLit) unlit.push(diyas[i]);
+          }
+          unlit.forEach(function (d, idx) {
+            setTimeout(function () {
+              igniteSingle(d);
+              if (onEachIgnite && idx % 2 === 0) onEachIgnite();
+              if (idx === unlit.length - 1) {
+                ignitingSequence = false;
+                if (onStateChange) onStateChange(true);
+              }
+            }, idx * 120);
+          });
+          return true;
+        }
+
+        function resetAll() {
+          ignitingSequence = false;
+          for (var i = 0; i < diyas.length; i++) {
+            diyas[i].isLit = false;
+            diyas[i].flame.visible = false;
+            diyas[i].light.intensity = 0;
+            diyas[i].hit.userData.label = '🪔 दीप प्रज्वलित करें (Tap to Light Diya)';
+          }
+          if (onStateChange) onStateChange(false);
+        }
+
+        return {
+          areAllLit: areAllLit,
+          igniteSingle: igniteSingle,
+          igniteAllSequential: igniteAllSequential,
+          resetAll: resetAll,
+          update: function (elapsed) {
+            for (var i = 0; i < diyas.length; i++) {
+              var d = diyas[i];
+              if (!d.isLit) continue;
+              var flicker = 1 + Math.sin(elapsed * 11 + d.phase) * 0.14 + Math.cos(elapsed * 17 + d.phase) * 0.08;
+              d.flame.scale.set(1, flicker, 1);
+              d.flame.rotation.z = Math.sin(elapsed * 7 + d.phase) * 0.07;
+              d.light.intensity = 1.5 * flicker;
+            }
+          }
+        };
+      }
+
+      /* 5. RESTORED CLASSIC 3D SPHERICAL MARIGOLD BLOSSOMS & CUPPED ROSE PETALS (STATE-GATED) */
+      function buildFlowerParticles(scene, isMobile, onShowerStateChange) {
+        var marigoldCount = isMobile ? 64 : 110;
+        var roseCount = isMobile ? 96 : 170;
+
+        var marigoldGeo = new THREE.DodecahedronGeometry(0.068, 1);
+        var marigoldColors = [0xff8c1a, 0xffcf26];
+
+        var petalShape = new THREE.Shape();
+        petalShape.moveTo(0, 0);
+        petalShape.bezierCurveTo(0.065, 0.02, 0.075, 0.11, 0, 0.14);
+        petalShape.bezierCurveTo(-0.075, 0.11, -0.065, 0.02, 0, 0);
+        var rosePetalGeo = new THREE.ShapeGeometry(petalShape, 8);
+        var pPos = rosePetalGeo.attributes.position;
+        for (var v = 0; v < pPos.count; v++) {
+          var px = pPos.getX(v);
+          var py = pPos.getY(v);
+          pPos.setZ(v, (px * px) * 3.2 + Math.sin((py / 0.14) * Math.PI) * 0.018);
+        }
+        rosePetalGeo.computeVertexNormals();
+        var roseColors = [0xc9143b, 0xff5e7e];
+
+        var batches = [];
+        var particles = [];
+        var dummy = new THREE.Object3D();
+
+        var perMarigold = Math.floor(marigoldCount / marigoldColors.length);
+        for (var mc = 0; mc < marigoldColors.length; mc++) {
+          var mMat = new THREE.MeshStandardMaterial({
+            color: marigoldColors[mc],
+            roughness: 0.55,
+            emissive: 0x260c00,
+            emissiveIntensity: 0.2
+          });
+          var mInst = new THREE.InstancedMesh(marigoldGeo, mMat, perMarigold);
+          mInst.visible = false; // STARTS HIDDEN
+          scene.add(mInst);
+          batches.push(mInst);
+
+          for (var mi = 0; mi < perMarigold; mi++) {
+            particles.push({
+              batch: mInst,
+              index: mi,
+              x: 0, y: -10, z: 0,
+              vy: 0.95 + Math.random() * 0.95,
+              rx: Math.random() * Math.PI,
+              ry: Math.random() * Math.PI,
+              rz: Math.random() * Math.PI,
+              vrx: (Math.random() - 0.5) * 3.0,
+              vry: (Math.random() - 0.5) * 3.0,
+              scale: 0.85 + Math.random() * 0.55
+            });
+          }
+        }
+
+        var perRose = Math.floor(roseCount / roseColors.length);
+        for (var rc = 0; rc < roseColors.length; rc++) {
+          var rMat = new THREE.MeshStandardMaterial({
+            color: roseColors[rc],
+            roughness: 0.45,
+            side: THREE.DoubleSide
+          });
+          var rInst = new THREE.InstancedMesh(rosePetalGeo, rMat, perRose);
+          rInst.visible = false; // STARTS HIDDEN
+          scene.add(rInst);
+          batches.push(rInst);
+
+          for (var ri = 0; ri < perRose; ri++) {
+            particles.push({
+              batch: rInst,
+              index: ri,
+              x: 0, y: -10, z: 0,
+              vy: 0.8 + Math.random() * 0.9,
+              rx: Math.random() * Math.PI,
+              ry: Math.random() * Math.PI,
+              rz: Math.random() * Math.PI,
+              vrx: (Math.random() - 0.5) * 4.2,
+              vry: (Math.random() - 0.5) * 4.2,
+              scale: 0.9 + Math.random() * 0.65
+            });
+          }
+        }
+
+        var state = { isShowerActive: false, timer: 0, duration: 6.0 };
+
+        function stopShower() {
+          state.isShowerActive = false;
+          state.timer = 0;
+          for (var b = 0; b < batches.length; b++) {
+            batches[b].visible = false;
+          }
+          if (onShowerStateChange) onShowerStateChange(false);
+        }
+
+        function triggerShower() {
+          if (state.isShowerActive) return false;
+          state.isShowerActive = true;
+          state.timer = state.duration;
+          for (var b = 0; b < batches.length; b++) {
+            batches[b].visible = true;
+          }
+          for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            p.x = (Math.random() - 0.5) * 4.4;
+            p.y = 3.5 + Math.random() * 3.8;
+            p.z = (Math.random() - 0.5) * 4.4;
+            dummy.position.set(p.x, p.y, p.z);
+            dummy.rotation.set(p.rx, p.ry, p.rz);
+            dummy.scale.setScalar(p.scale);
+            dummy.updateMatrix();
+            p.batch.setMatrixAt(p.index, dummy.matrix);
+          }
+          for (var b2 = 0; b2 < batches.length; b2++) {
+            batches[b2].instanceMatrix.needsUpdate = true;
+          }
+          if (onShowerStateChange) onShowerStateChange(true);
+          return true;
+        }
+
+        return {
+          isActive: function () { return state.isShowerActive; },
+          triggerShower: triggerShower,
+          stopShower: stopShower,
+          update: function (elapsed, dt) {
+            if (!state.isShowerActive) return;
+            state.timer -= dt;
+            if (state.timer <= 0) {
+              stopShower();
+              return;
+            }
+            var fadeScale = state.timer < 1.0 ? Math.max(0.01, state.timer) : 1.0;
+            for (var i = 0; i < particles.length; i++) {
+              var p = particles[i];
+              p.y -= p.vy * dt * 1.5;
+              p.x += Math.sin(elapsed * 1.6 + i) * 0.25 * dt;
+              p.z += Math.cos(elapsed * 1.3 + i) * 0.25 * dt;
+              p.rx += p.vrx * dt;
+              p.ry += p.vry * dt;
+
+              if (p.y < 0.26 && state.timer > 1.2) {
+                p.y = 4.3 + Math.random() * 2.4;
+                p.x = (Math.random() - 0.5) * 4.4;
+                p.z = (Math.random() - 0.5) * 4.4;
+              }
+
+              dummy.position.set(p.x, p.y, p.z);
+              dummy.rotation.set(p.rx, p.ry, p.rz);
+              dummy.scale.setScalar(p.scale * fadeScale);
+              dummy.updateMatrix();
+              p.batch.setMatrixAt(p.index, dummy.matrix);
+            }
+            for (var b = 0; b < batches.length; b++) {
+              batches[b].instanceMatrix.needsUpdate = true;
+            }
+          }
+        };
+      }
+
+      /* ========================================================================
+         6. INITIALIZE 3D WORLD, CAMERA CONTROLS, RAYCASTER & SCENE DIRECTOR
+         ======================================================================== */
+      function init3DExperience() {
+        var container = document.getElementById('canvas-container');
+        if (!container || typeof THREE === 'undefined') {
+          dismissLoader();
+          return;
+        }
+
+        var isMobile = window.innerWidth <= 768;
+        var scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x090206);
+        scene.fog = new THREE.FogExp2(0x13040a, 0.025);
+
+        var renderer = new THREE.WebGLRenderer({
+          antialias: !isMobile,
+          powerPreference: 'high-performance'
+        });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile ? 1.75 : 2));
+        renderer.setSize(container.clientWidth || window.innerWidth, container.clientHeight || window.innerHeight);
+        renderer.outputEncoding = THREE.sRGBEncoding;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.18;
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        container.appendChild(renderer.domElement);
+
+        function computeFov(aspect) {
+          return aspect < 0.85 ? 58 : 44;
+        }
+        var aspect = (container.clientWidth || window.innerWidth) / (container.clientHeight || window.innerHeight);
+        var camera = new THREE.PerspectiveCamera(computeFov(aspect), aspect, 0.1, 160);
+        camera.position.set(0, 3.4, 12.2);
+
+        // OrbitControls with Safe Built-In Pointer & Wheel Fallback
+        var controls = null;
+        var targetVec = new THREE.Vector3(0, 1.85, 0.15);
+        if (typeof THREE.OrbitControls !== 'undefined') {
+          controls = new THREE.OrbitControls(camera, renderer.domElement);
+          controls.target.copy(targetVec);
+          controls.enableDamping = true;
+          controls.dampingFactor = 0.055;
+          controls.minDistance = 3.2;
+          controls.maxDistance = 19.5;
+          controls.maxPolarAngle = Math.PI * 0.485;
+          controls.minPolarAngle = 0.22;
+          controls.enablePan = false;
+          controls.update();
+        } else {
+          var sph = { radius: 9.0, theta: 0, phi: 1.25, dragging: false, px: 0, py: 0 };
+          function syncFallbackCam() {
+            var sinP = Math.sin(sph.phi);
+            camera.position.set(
+              targetVec.x + sph.radius * sinP * Math.sin(sph.theta),
+              targetVec.y + sph.radius * Math.cos(sph.phi),
+              targetVec.z + sph.radius * sinP * Math.cos(sph.theta)
+            );
+            camera.lookAt(targetVec);
+          }
+          renderer.domElement.addEventListener('pointerdown', function (e) {
+            sph.dragging = true;
+            sph.px = e.clientX;
+            sph.py = e.clientY;
+          });
+          window.addEventListener('pointermove', function (e) {
+            if (!sph.dragging) return;
+            sph.theta -= (e.clientX - sph.px) * 0.0065;
+            sph.phi = Math.max(0.25, Math.min(Math.PI * 0.48, sph.phi - (e.clientY - sph.py) * 0.0065));
+            sph.px = e.clientX;
+            sph.py = e.clientY;
+            syncFallbackCam();
+          });
+          window.addEventListener('pointerup', function () { sph.dragging = false; });
+          renderer.domElement.addEventListener('wheel', function (e) {
+            sph.radius = Math.max(3.5, Math.min(18.5, sph.radius + e.deltaY * 0.006));
+            syncFallbackCam();
+          }, { passive: true });
+          controls = {
+            target: targetVec,
+            update: function () { camera.lookAt(targetVec); }
+          };
+        }
+
+        // Lighting
+        var ambientLight = new THREE.AmbientLight(0xffe1b5, 0.58);
+        scene.add(ambientLight);
+
+        var moonLight = new THREE.DirectionalLight(0x9bb8ff, 1.05);
+        moonLight.position.set(-9, 16, -12);
+        scene.add(moonLight);
+
+        var keyLight = new THREE.DirectionalLight(0xffcf7a, 2.15);
+        keyLight.position.set(6, 11, 8);
+        keyLight.castShadow = true;
+        keyLight.shadow.mapSize.set(1024, 1024);
+        keyLight.shadow.camera.near = 1;
+        keyLight.shadow.camera.far = 32;
+        keyLight.shadow.camera.left = -8;
+        keyLight.shadow.camera.right = 8;
+        keyLight.shadow.camera.top = 8;
+        keyLight.shadow.camera.bottom = -8;
+        keyLight.shadow.bias = -0.0005;
+        scene.add(keyLight);
+
+        var shrineLight = new THREE.PointLight(0xffaa33, 3.2, 16, 1.4);
+        shrineLight.position.set(0, 3.4, 0.5);
+        scene.add(shrineLight);
+
+        var rimLight = new THREE.PointLight(0xff8c24, 2.4, 18, 1.5);
+        rimLight.position.set(0, 4.2, -3.5);
+        scene.add(rimLight);
+
+        // Build 3D Environment & Interactive Sacred Objects
+        var stoneTex = createCarvedStoneTexture(512);
+        var rangoliTex = createRangoliTexture(1024);
+        var interactables = [];
+
+        var env = buildTempleEnvironment(scene, stoneTex, rangoliTex);
+        buildTulsiVrindavan(scene, stoneTex);
+        var tulsiPlant = buildTulsiPlant(scene, interactables);
+        var mandap = buildSacredMandap(scene, interactables);
+        var templeBell = buildTempleBell(scene, interactables);
+        var audio = new TempleAudio();
+
+        // Info Panel Helpers
+        var infoPanel = document.getElementById('info-panel');
+        var infoTitle = document.getElementById('info-title');
+        var infoBody = document.getElementById('info-body');
+        function showInfo(title, body) {
+          infoTitle.textContent = title;
+          infoBody.textContent = body;
+          infoPanel.classList.remove('hidden');
+        }
+        document.getElementById('btn-close-info').addEventListener('click', function () {
+          infoPanel.classList.add('hidden');
+        });
+
+        // State-Gated Diya Manager & Flower Shower
+        var actDiyaBtn = document.getElementById('act-diya');
+        var diyaBtnLabel = document.getElementById('diya-btn-label');
+        var diyaManager = buildDiyaManager(scene, interactables, function (allLit) {
+          actDiyaBtn.disabled = allLit;
+          actDiyaBtn.classList.toggle('completed', allLit);
+          diyaBtnLabel.textContent = allLit ? 'दीप प्रज्वलित हैं ✓' : 'दीप प्रज्वलन';
+        });
+
+        var actFlowerBtn = document.getElementById('act-flowers');
+        var flowerBtnLabel = document.getElementById('flower-btn-label');
+        var flowers = buildFlowerParticles(scene, isMobile, function (active) {
+          actFlowerBtn.disabled = active;
+          actFlowerBtn.classList.toggle('completed', active);
+          flowerBtnLabel.textContent = active ? 'पुष्प वर्षा जारी...' : 'पुष्प वर्षा';
+        });
+
+        // Raycaster for 3D Hover & Tap Interactions
+        var raycaster = new THREE.Raycaster();
+        var pointer = new THREE.Vector2();
+        var downPos = { x: 0, y: 0 };
+        var tooltip = document.getElementById('hover-tooltip');
+
+        function hitTest(e) {
+          var rect = renderer.domElement.getBoundingClientRect();
+          pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+          pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+          raycaster.setFromCamera(pointer, camera);
+          var hits = raycaster.intersectObjects(interactables, false);
+          return hits.length > 0 ? hits[0].object : null;
+        }
+
+        renderer.domElement.addEventListener('pointermove', function (e) {
+          var hit = hitTest(e);
+          if (hit && hit.userData && hit.userData.label) {
+            renderer.domElement.style.cursor = 'pointer';
+            tooltip.textContent = hit.userData.label;
+            tooltip.style.left = e.clientX + 'px';
+            tooltip.style.top = e.clientY + 'px';
+            tooltip.classList.remove('hidden');
+          } else {
+            renderer.domElement.style.cursor = 'grab';
+            tooltip.classList.add('hidden');
+          }
+        });
+
+        renderer.domElement.addEventListener('pointerdown', function (e) {
+          downPos = { x: e.clientX, y: e.clientY };
+        });
+
+        renderer.domElement.addEventListener('pointerup', function (e) {
+          var dist = Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y);
+          if (dist > 8) return;
+          var hit = hitTest(e);
+          if (!hit || !hit.userData) return;
+          var data = hit.userData;
+
+          if (data.type === 'bell') {
+            templeBell.ring(0.46);
+            audio.playBell(0.85);
+            showInfo(data.title, data.body);
+          } else if (data.type === 'diya') {
+            if (diyaManager.igniteSingle(data.diya)) {
+              audio.playDiyaIgnite();
+            }
+            showInfo(data.title, data.body);
+          } else if (data.type === 'tulsi') {
+            tulsiPlant.triggerAura();
+            if (flowers.triggerShower()) audio.playFlowerShower();
+            showInfo(data.title, data.body);
+          } else if (data.type === 'shaligram') {
+            tulsiPlant.triggerAura();
+            showInfo(data.title, data.body);
+          }
+        });
+
+        // 5-Chapter Camera Viewpoints & Chapter Banner Metadata
+        var chapters = [
+          {
+            pos: { x: 0, y: 3.4, z: 12.2 },
+            target: { x: 0, y: 2.0, z: 0 },
+            title: '०१ • दिव्य मंदिर प्रवेश',
+            desc: 'पावन कार्तिक रात्रि, देवालय स्तंभ एवं मंगल घंटा नाद'
+          },
+          {
+            pos: { x: 0, y: 2.75, z: 6.4 },
+            target: { x: 0, y: 1.85, z: 0.15 },
+            title: '०२ • श्री तुलसी वृंदावन',
+            desc: 'पवित्र तुलसी महारानी, स्वस्तिक नक्काशीयुक्त वृंदावन एवं रंगोली प्रांगण'
+          },
+          {
+            pos: { x: -2.7, y: 3.35, z: 9.2 },
+            target: { x: -0.1, y: 1.95, z: -0.1 },
+            title: '०३ • तुलसी-शालिग्राम विवाह मंडप',
+            desc: '४-स्तंभ विवाह मंडप, श्री शालिग्राम शिला एवं पावन गठबंधन'
+          },
+          {
+            pos: { x: -1.6, y: 3.1, z: 7.8 },
+            target: { x: 0, y: 2.1, z: 0 },
+            title: '',
+            desc: ''
+          },
+          {
+            pos: { x: 0, y: 3.6, z: 9.2 },
+            target: { x: 0, y: 2.2, z: 0 },
+            title: '',
+            desc: ''
+          }
+        ];
+
+        var currentScene = 0;
+        var introLayer = document.getElementById('intro-overlay');
+        var greetingLayer = document.getElementById('greeting-overlay');
+        var brandLayer = document.getElementById('brand-overlay');
+        var chapterBanner = document.getElementById('chapter-banner');
+        var chapterTitle = document.getElementById('chapter-title');
+        var chapterDesc = document.getElementById('chapter-desc');
+        var stepDots = document.querySelectorAll('.step-dot');
+
+        function animateCameraTo(pos, target, duration) {
+          var dur = duration || 1.45;
+          if (typeof gsap !== 'undefined') {
+            gsap.killTweensOf(camera.position);
+            gsap.killTweensOf(controls.target);
+            gsap.to(camera.position, {
+              x: pos.x,
+              y: pos.y,
+              z: pos.z,
+              duration: dur,
+              ease: 'power3.inOut'
+            });
+            gsap.to(controls.target, {
+              x: target.x,
+              y: target.y,
+              z: target.z,
+              duration: dur,
+              ease: 'power3.inOut'
+            });
+          } else {
+            camera.position.set(pos.x, pos.y, pos.z);
+            controls.target.set(target.x, target.y, target.z);
+            controls.update();
+          }
+        }
+
+        function goToScene(index, animateCam) {
+          currentScene = index;
+          var vp = chapters[index] || chapters[1];
+          if (animateCam !== false) {
+            animateCameraTo(vp.pos, vp.target, 1.45);
+          }
+
+          introLayer.classList.toggle('hidden', index !== 0);
+          greetingLayer.classList.toggle('hidden', index !== 3);
+          brandLayer.classList.toggle('hidden', index !== 4);
+
+          if (index <= 2 && vp.title) {
+            chapterTitle.textContent = vp.title;
+            chapterDesc.textContent = vp.desc;
+            chapterBanner.classList.remove('hidden');
+          } else {
+            chapterBanner.classList.add('hidden');
+          }
+
+          for (var i = 0; i < stepDots.length; i++) {
+            stepDots[i].classList.toggle('active', i === index);
+          }
+        }
+
+        function playOpeningSequence() {
+          diyaManager.resetAll();
+          flowers.stopShower();
+          infoPanel.classList.add('hidden');
+
+          var curtain = document.getElementById('cinematic-curtain');
+          var mantra = document.getElementById('intro-mantra');
+          var sub = document.getElementById('intro-subtitle');
+
+          camera.position.set(0, 3.6, 13.8);
+          controls.target.set(0, 2.0, 0);
+          goToScene(0, false);
+          templeBell.ring(0.36);
+
+          if (typeof gsap !== 'undefined') {
+            gsap.killTweensOf([curtain, mantra, sub, camera.position]);
+            var tl = gsap.timeline();
+            tl.to(curtain, { opacity: 0, duration: 1.2, ease: 'power2.out' })
+              .fromTo(mantra, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 1.0, ease: 'power3.out' }, '-=0.7')
+              .fromTo(sub, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.85, ease: 'power2.out' }, '-=0.5')
+              .to(camera.position, {
+                x: 0,
+                y: 2.75,
+                z: 6.4,
+                duration: 3.2,
+                ease: 'power2.inOut'
+              }, '-=0.3')
+              .add(function () {
+                if (currentScene === 0) {
+                  goToScene(1, true);
+                }
+              }, '+=1.3');
+          } else {
+            curtain.style.opacity = '0';
+          }
+        }
+
+        // Wire Bottom Ceremonial Buttons (State-Gated)
+        document.getElementById('act-bell').addEventListener('click', function () {
+          templeBell.ring(0.48);
+          audio.playBell(0.9);
+          showInfo('मंगल नाद — मंदिर घंटा', 'शंख और घंटे की पवित्र ध्वनि वातावरण में सकारात्मक ऊर्जा और भक्ति का संचार करती है।');
+        });
+
+        actDiyaBtn.addEventListener('click', function () {
+          if (diyaManager.areAllLit()) return;
+          var started = diyaManager.igniteAllSequential(function () {
+            audio.playDiyaIgnite();
+          });
+          if (started) {
+            showInfo('पावन दीप प्रज्वलन', 'सभी पवित्र घृत दीप प्रज्वलित हो उठे हैं। शालिग्राम भगवान एवं माता तुलसी आपके जीवन को आलोकित करें।');
+          }
+        });
+
+        actFlowerBtn.addEventListener('click', function () {
+          if (flowers.isActive()) return;
+          if (flowers.triggerShower()) {
+            audio.playFlowerShower();
+            showInfo('दिव्य पुष्प वर्षा', 'गुलाब और गेंदे की सुगंधित पंखुड़ियों से श्री तुलसी-शालिग्राम विवाह मंडप सुशोभित हो उठा है।');
+          }
+        });
+
+        document.getElementById('act-tulsi').addEventListener('click', function () {
+          tulsiPlant.triggerAura();
+          audio.playFlowerShower();
+          showInfo('श्री तुलसी महारानी', 'कार्तिक शुक्ल देवउठनी एकादशी के पावन अवसर पर माता तुलसी और शालिग्राम भगवान का दिव्य विवाह सृष्टि में सुख और सौभाग्य लाता है।');
+        });
+
+        // Wire Scene Navigation & HUD Buttons
+        document.getElementById('btn-skip-intro').addEventListener('click', function () { goToScene(1, true); });
+        document.getElementById('btn-explore-shrine').addEventListener('click', function () { goToScene(2, true); });
+        document.getElementById('btn-to-brand').addEventListener('click', function () { goToScene(4, true); });
+        document.getElementById('btn-back-to-3d').addEventListener('click', function () { goToScene(2, true); });
+        document.getElementById('brand-badge').addEventListener('click', function () { goToScene(4, true); });
+
+        for (var s = 0; s < stepDots.length; s++) {
+          (function (btn) {
+            btn.addEventListener('click', function () {
+              goToScene(Number(btn.getAttribute('data-scene')), true);
+            });
+          })(stepDots[s]);
+        }
+
+        document.getElementById('btn-sound').addEventListener('click', function () {
+          var active = audio.toggle();
+          document.getElementById('sound-icon').textContent = active ? '🔊' : '🔇';
+        });
+
+        document.getElementById('btn-reset-cam').addEventListener('click', function () {
+          goToScene(1, true);
+        });
+
+        document.getElementById('btn-replay').addEventListener('click', function () {
+          playOpeningSequence();
+        });
+
+        document.getElementById('btn-fullscreen').addEventListener('click', function () {
+          if (!document.fullscreenElement) {
+            if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+          } else if (document.exitFullscreen) {
+            document.exitFullscreen();
+          }
+        });
+
+        document.getElementById('btn-status-mode').addEventListener('click', function (e) {
+          document.body.classList.toggle('status-9-16-mode');
+          e.currentTarget.classList.toggle('active');
+          setTimeout(onWindowResize, 60);
+        });
+
+        function onWindowResize() {
+          var w = container.clientWidth || window.innerWidth;
+          var h = container.clientHeight || window.innerHeight;
+          var asp = w / h;
+          camera.fov = computeFov(asp);
+          camera.aspect = asp;
+          camera.updateProjectionMatrix();
+          renderer.setSize(w, h);
+        }
+        window.addEventListener('resize', onWindowResize);
+
+        // Render initial frame immediately & dismiss loader within 350ms
+        renderer.render(scene, camera);
+        setTimeout(function () {
+          dismissLoader();
+          playOpeningSequence();
+        }, 350);
+
+        // Main 60 FPS Animation Loop
+        var clock = new THREE.Clock();
+        function animate() {
+          requestAnimationFrame(animate);
+          var dt = Math.min(clock.getDelta(), 0.05);
+          var elapsed = clock.elapsedTime;
+
+          shrineLight.intensity = 3.1 + Math.sin(elapsed * 3.4) * 0.22;
+          if (env.goldDust) {
+            env.goldDust.rotation.y = elapsed * 0.03;
+            env.goldDust.position.y = Math.sin(elapsed * 0.6) * 0.12;
+          }
+
+          tulsiPlant.update(elapsed, dt);
+          mandap.update(elapsed);
+          diyaManager.update(elapsed);
+          templeBell.update(dt);
+          flowers.update(elapsed, dt);
+          controls.update();
+
+          renderer.render(scene, camera);
+        }
+        animate();
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+          try { init3DExperience(); } catch (err) { console.error(err); dismissLoader(); }
+        });
+      } else {
+        try { init3DExperience(); } catch (err) { console.error(err); dismissLoader(); }
+      }
+    })();
+  </script>
+</body>
+</html>
