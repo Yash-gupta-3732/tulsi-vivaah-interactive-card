@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "name": "sks-devuthni-shubkamnaye",
+  "cleanUrls": true,
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
